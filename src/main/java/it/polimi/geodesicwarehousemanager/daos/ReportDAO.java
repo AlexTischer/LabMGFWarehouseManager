@@ -1,2 +1,4 @@
-package it.polimi.geodesicwarehousemanager.daos;public class ReportDAO {
+package it.polimi.geodesicwarehousemanager.daos;
+
+public class ReportDAO {
 }

@@ -1,38 +1,279 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SPLITTER_PROPORTION" value="0.3277311" />
+  </component>
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="GeodesicWareHouseManager:war exploded" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4bbd4ea9-dba0-4f9f-a300-05420a4096ba" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/MainTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/utils/Constants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/usefulLinks" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/public/utils/modal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/users/getAvTools.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/users/homepage.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/users/homepage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/users/logout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/HelloServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/HelloServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/beans/DocumentBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/beans/DocumentBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/beans/ItemBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/beans/ItemBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/beans/ReportBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/beans/ReportBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/beans/RequestBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/beans/RequestBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/beans/UserBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/beans/UserBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/ConfirmRegistration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/ConfirmRegistration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/Logout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/Logout.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/RecoverPassword.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/RecoverPassword.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/Register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/admins/GetFutureRequests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/admins/GetFutureRequests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/admins/GetPastRequests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/admins/GetPastRequests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/admins/GetUsers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/admins/GetUsers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/admins/SetUsersRoles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/admins/SetUsersRoles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/superUsers/CreateItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/superUsers/CreateItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/superUsers/GetItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/superUsers/GetItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/superUsers/GetReports.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/superUsers/GetReports.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/superUsers/LinkItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/superUsers/LinkItems.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/superUsers/UpdateReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/superUsers/UpdateReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/ChangePassword.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/ChangePassword.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/CreateReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/CreateReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/CreateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/CreateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/GetAvAccessories.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/GetAvAccessories.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/GetAvDates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/GetAvDates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/GetAvTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/GetAvTools.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/GetUserRequests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/GetUserRequests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/RemoveRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/RemoveRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/daos/ItemDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/daos/ItemDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/daos/ReportDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/daos/ReportDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/daos/RequestDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/daos/RequestDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/daos/TokenDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/daos/TokenDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/daos/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/daos/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/enums/ApprovalStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/enums/ApprovalStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/enums/DocumentLanguage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/enums/DocumentLanguage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/enums/DocumentType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/enums/DocumentType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/enums/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/enums/Location.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/enums/UserRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/enums/UserRole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/filters/AdminChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/filters/AdminChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/filters/HasAccessChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/filters/HasAccessChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/filters/SuperUserChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/filters/SuperUserChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/filters/UserChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/filters/UserChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/utils/ConnectionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/utils/ConnectionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/utils/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/utils/FileHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/utils/MailHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/utils/MailHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/utils/PasswordHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/utils/PasswordHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/utils/TokenHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/utils/TokenHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admins/manageRequests/manageRequests.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admins/manageRequests/manageRequests.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admins/manageUsersRoles/manageUserRoles.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admins/manageUsersRoles/manageUserRoles.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admins/manageUsersRoles/manageUserRoles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admins/manageUsersRoles/manageUserRoles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admins/requestsHistory/requestsHistory.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admins/requestsHistory/requestsHistory.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/common/getAvAccessories.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/public/utils/contextPath.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/common/getAvTools.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/users/getAvAccessories.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/common/homepage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/users/waitForRole.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/public/index/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/public/index/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/public/index/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/public/index/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/public/login/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/public/login/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/public/login/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/public/login/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/public/login/recover.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/public/login/recover.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/public/register/confirm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/public/register/confirm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/public/register/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/public/register/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/public/register/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/public/register/register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/public/utils/makeCall.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/public/utils/makeCall.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/superusers/manageItems/manageItems.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/superusers/manageItems/manageItems.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/superusers/manageReports/manageReports.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/superusers/manageReports/manageReports.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/users/changePassword/changePassword.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/users/changePassword/changePassword.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/users/changePassword/changePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/users/changePassword/changePassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/users/newReport/newReport.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/users/newReport/newReport.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/users/newRequest/newRequest.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/users/newRequest/newRequest.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="JakartaServlet" />
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="2PorHP28ftNqUHIV2GMoct6BWMt" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/aless/IdeaProjects/Geodesic WareHouse Manager/src/main/webapp/public/utils&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.completion&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\aless\IdeaProjects\Geodesic WareHouse Manager\src\main\webapp\public\utils" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\aless\IdeaProjects\Geodesic WareHouse Manager\src\main\webapp\users" />
+      <recent name="C:\Users\aless\IdeaProjects\Geodesic WareHouse Manager\src\main" />
+      <recent name="C:\Users\aless\IdeaProjects\Geodesic WareHouse Manager\src\main\webapp\common" />
+      <recent name="C:\Users\aless\IdeaProjects\Geodesic WareHouse Manager\src\main\webapp" />
+      <recent name="C:\Users\aless\IdeaProjects\Geodesic WareHouse Manager\src\main\webapp\public\register" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Tomcat Server.Tomcat 10.1.7">
+    <configuration name="MainTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="it.polimi.geodesicwarehousemanager.MainTest" />
+      <module name="GeodesicWareHouseManager" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.geodesicwarehousemanager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Tomcat 10.1.7" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.7" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/GeodesicWareHouseManager" />
+      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
+      <option name="SHOW_DIALOG_ON_UPDATE" value="false" />
+      <option name="UPDATING_POLICY" value="redeploy-artifacts" />
+      <deployment>
+        <artifact name="GeodesicWareHouseManager:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/GeodesicWareHouseManager" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="3a770909-52d3-4df2-8295-1d3bf3a19ec7" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="52684" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="GeodesicWareHouseManager:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MainTest" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -41,8 +282,35 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1684134187682</updated>
-      <workItem from="1684134188805" duration="3000" />
+      <workItem from="1684134188805" duration="4882000" />
+      <workItem from="1684140827746" duration="21569000" />
+      <workItem from="1684223560324" duration="14105000" />
+      <workItem from="1684241884836" duration="4137000" />
+      <workItem from="1684252296665" duration="14161000" />
+      <workItem from="1684324489784" duration="1316000" />
+      <workItem from="1684400093453" duration="56000" />
+      <workItem from="1684400255062" duration="593000" />
+      <workItem from="1684486594470" duration="19719000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/admins/SetUsersRoles.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/admins/SetUsersRoles.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

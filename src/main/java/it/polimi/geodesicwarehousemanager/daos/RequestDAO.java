@@ -1,2 +1,4 @@
-package it.polimi.geodesicwarehousemanager.daos;public class RequestDAO {
+package it.polimi.geodesicwarehousemanager.daos;
+
+public class RequestDAO {
 }

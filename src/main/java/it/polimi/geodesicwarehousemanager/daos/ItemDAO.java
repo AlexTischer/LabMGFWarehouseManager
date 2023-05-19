@@ -1,2 +1,4 @@
-package it.polimi.geodesicwarehousemanager.daos;public class ToolDAO {
+package it.polimi.geodesicwarehousemanager.daos;
+
+public class ItemDAO {
 }

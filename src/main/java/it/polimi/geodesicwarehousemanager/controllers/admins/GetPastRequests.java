@@ -1,6 +1,8 @@
 package it.polimi.geodesicwarehousemanager.controllers.admins;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.UnavailableException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,14 +15,12 @@ import java.sql.SQLException;
 import it.polimi.geodesicwarehousemanager.utils.ConnectionHandler;
 
 
-@WebServlet(name = "GetPastRequests", value = "/GetPastRequests")
+@MultipartConfig
+@WebServlet(name = "GetPastRequests", value = "/Admin/GetPastRequests")
 public class GetPastRequests extends HttpServlet {
-    public GetPastRequests() {
-        super();
-    }
     private Connection connection = null;
 
-    public void init() throws ServletException {
+    public void init() {
         try {
             connection = ConnectionHandler.getConnection(getServletContext());
         } catch (UnavailableException e) {
@@ -28,14 +28,14 @@ public class GetPastRequests extends HttpServlet {
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
     }
-    
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+
     }
-    
+
     public void destroy() {
         try {
             connection.close();

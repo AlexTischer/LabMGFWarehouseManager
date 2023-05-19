@@ -1,2 +1,4 @@
-package it.polimi.geodesicwarehousemanager.beans;public class DocumentBean {
+package it.polimi.geodesicwarehousemanager.beans;
+
+public class DocumentBean {
 }

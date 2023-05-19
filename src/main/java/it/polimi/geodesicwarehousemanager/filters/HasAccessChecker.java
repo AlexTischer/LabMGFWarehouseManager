@@ -1,2 +1,4 @@
-package it.polimi.geodesicwarehousemanager.filters;public class HasAccessChecker {
+package it.polimi.geodesicwarehousemanager.filters;
+
+public class HasAccessChecker {
 }

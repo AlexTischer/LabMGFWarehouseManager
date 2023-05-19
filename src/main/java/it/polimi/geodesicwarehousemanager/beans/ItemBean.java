@@ -1,2 +1,4 @@
-package it.polimi.geodesicwarehousemanager.beans;public class AccessoryBean {
+package it.polimi.geodesicwarehousemanager.beans;
+
+public class ItemBean {
 }

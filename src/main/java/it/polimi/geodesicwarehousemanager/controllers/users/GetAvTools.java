@@ -1,6 +1,8 @@
-package it.polimi.geodesicwarehousemanager;
+package it.polimi.geodesicwarehousemanager.controllers.users;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.UnavailableException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,14 +15,13 @@ import java.sql.SQLException;
 import it.polimi.geodesicwarehousemanager.utils.ConnectionHandler;
 
 
+@MultipartConfig
 @WebServlet(name = "GetAvTools", value = "/GetAvTools")
 public class GetAvTools extends HttpServlet {
-    public GetAvTools() {
-        super();
-    }
+
     private Connection connection = null;
 
-    public void init() throws ServletException {
+    public void init() {
         try {
             connection = ConnectionHandler.getConnection(getServletContext());
         } catch (UnavailableException e) {
@@ -28,14 +29,14 @@ public class GetAvTools extends HttpServlet {
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
     }
-    
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+
     }
-    
+
     public void destroy() {
         try {
             connection.close();

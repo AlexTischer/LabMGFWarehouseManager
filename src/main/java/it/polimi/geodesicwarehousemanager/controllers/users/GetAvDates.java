@@ -1,2 +1,4 @@
-package it.polimi.geodesicwarehousemanager.controllers.users;public class GetAvDates {
+package it.polimi.geodesicwarehousemanager.controllers.users;
+
+public class GetAvDates {
 }

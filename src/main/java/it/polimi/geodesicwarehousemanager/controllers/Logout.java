@@ -1,4 +1,5 @@
 package it.polimi.geodesicwarehousemanager.controllers;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.UnavailableException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,14 +11,14 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import it.polimi.geodesicwarehousemanager.utils.ConnectionHandler;
+
 @WebServlet(name = "Logout", value = "/Logout")
 public class Logout extends HttpServlet {
-    public Logout() {
-        super();
-    }
+
     private Connection connection = null;
 
-    public void init() throws ServletException {
+    public void init() {
         try {
             connection = ConnectionHandler.getConnection(getServletContext());
         } catch (UnavailableException e) {
@@ -25,13 +26,11 @@ public class Logout extends HttpServlet {
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+        request.getSession().invalidate();
+        response.setStatus(HttpServletResponse.SC_OK);
+    }
 
-    }
-    
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    }
-    
     public void destroy() {
         try {
             connection.close();
