@@ -3,7 +3,7 @@ package it.polimi.geodesicwarehousemanager.enums;
 import com.google.gson.annotations.SerializedName;
 
 public enum DocumentLanguage {
-    @SerializedName("Italiano")
+    @SerializedName("Italian")
     ITALIAN(0),
     @SerializedName("English")
     ENGLISH(1);

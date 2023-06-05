@@ -19,16 +19,20 @@ function makeCall(method, url, formElement = null, data = null, okcback, errcbac
 
     req.open(method, url);
     if (formElement != null) {
-        var formData = new FormData(formElement);
+        let formData = new FormData(formElement);
+        if(data !== null && data !== undefined) {
+            let jsonData = JSON.parse(data);
+            for (let key in jsonData) {
+                formData.append(key, jsonData[key]);
+            }
+        }
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]);
         }
         req.send(formData);
     } else if (data != null) {
         req.setRequestHeader("Content-Type", "application/json");
-        console.log(data);
-        var jsonData = JSON.stringify(data);
-        console.log(jsonData);
+        let jsonData = JSON.stringify(data);
         req.send(jsonData);
     } else {
         req.send();

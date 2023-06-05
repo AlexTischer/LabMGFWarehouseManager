@@ -1,5 +1,7 @@
 package it.polimi.geodesicwarehousemanager.controllers.admins;
 
+import com.google.gson.Gson;
+import it.polimi.geodesicwarehousemanager.beans.RequestBean;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.UnavailableException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -28,9 +30,9 @@ public class GetPastRequests extends HttpServlet {
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-
-    }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setStatus(HttpServletResponse.SC_OK);
+        }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 
