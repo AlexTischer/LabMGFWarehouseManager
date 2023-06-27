@@ -3,13 +3,13 @@ package it.polimi.geodesicwarehousemanager.beans;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-import it.polimi.geodesicwarehousemanager.enums.ApprovalStatus;
+import it.polimi.geodesicwarehousemanager.enums.RequestStatus;
 
 public class RequestBean {
     private int id;
     private Timestamp start;
     private Timestamp end;
-    private ApprovalStatus approvalStatus;
+    private RequestStatus requestStatus;
     private String reason;
     private int userId;
     private ArrayList<Integer> tools;
@@ -36,11 +36,11 @@ public class RequestBean {
         this.end = end;
     }
 
-    public ApprovalStatus getApprovalStatus() {
-        return approvalStatus;
+    public RequestStatus getRequestStatus() {
+        return requestStatus;
     }
-    public void setApprovalStatus(ApprovalStatus approvalStatus) {
-        this.approvalStatus = approvalStatus;
+    public void setApprovalStatus(RequestStatus requestStatus) {
+        this.requestStatus = requestStatus;
     }
 
     public String getReason() {

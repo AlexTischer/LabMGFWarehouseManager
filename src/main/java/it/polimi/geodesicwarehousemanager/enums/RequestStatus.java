@@ -2,28 +2,32 @@ package it.polimi.geodesicwarehousemanager.enums;
 
 import com.google.gson.annotations.SerializedName;
 
-public enum ApprovalStatus {
+public enum RequestStatus {
     @SerializedName("Pending")
     PENDING(0),
     @SerializedName("Approved")
     APPROVED(1),
     @SerializedName("Declined")
-    DECLINED(2);
+    DECLINED(2),
+    @SerializedName("Canceled")
+    CANCELED(3);
     private final int value;
 
-    ApprovalStatus(int value) {
+    RequestStatus(int value) {
         this.value = value;
     }
 
     /**Returns the Approval Status from an int value*/
-    public static ApprovalStatus getApprovalStatusFromInt(int value){
+    public static RequestStatus getRequestStatusFromInt(int value){
         switch (value) {
             case 0:
-                return ApprovalStatus.PENDING;
+                return RequestStatus.PENDING;
             case 1:
-                return ApprovalStatus.APPROVED;
+                return RequestStatus.APPROVED;
             case 2:
-                return ApprovalStatus.DECLINED;
+                return RequestStatus.DECLINED;
+            case 3:
+                return RequestStatus.CANCELED;
         }
         return null;
     }

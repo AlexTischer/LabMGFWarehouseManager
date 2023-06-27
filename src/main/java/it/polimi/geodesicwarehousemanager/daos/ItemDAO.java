@@ -4,13 +4,8 @@ import it.polimi.geodesicwarehousemanager.beans.DocumentBean;
 import it.polimi.geodesicwarehousemanager.beans.ItemBean;
 import it.polimi.geodesicwarehousemanager.enums.DocumentLanguage;
 import it.polimi.geodesicwarehousemanager.enums.DocumentType;
-import it.polimi.geodesicwarehousemanager.enums.ItemType;
-import it.polimi.geodesicwarehousemanager.enums.Location;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -67,11 +62,23 @@ public class ItemDAO {
             return null;
     }
 
-    private final String selectAllItemsByTypeAndLocationQuery = "SELECT * FROM items WHERE type = ? AND location = ?";
+    private String selectAllItemsByTypeAndLocationQuery = "SELECT * FROM items";
     public ArrayList<ItemBean> selectAllItemsByTypeAndLocation(int itemType, int itemLocation) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement(selectAllItemsByTypeAndLocationQuery);
-        preparedStatement.setString(1, itemType != -1 ? String.valueOf(itemType) : "type" );
-        preparedStatement.setString(2, itemLocation != -1 ? String.valueOf(itemLocation) : "location" );
+
+        String tempQuery = selectAllItemsByTypeAndLocationQuery;
+
+        if(itemType != -1) {
+            tempQuery += " WHERE type = " + itemType;
+
+            if(itemLocation != -1) {
+                tempQuery += " AND location = " + itemLocation;
+            }
+        } else if(itemLocation != -1) {
+            tempQuery += " WHERE location = " + itemLocation;
+        }
+
+        PreparedStatement preparedStatement = connection.prepareStatement(tempQuery);
+
         ResultSet resultSet = preparedStatement.executeQuery();
         ArrayList<ItemBean> itemBeans = new ArrayList<>();
         while (resultSet.next()){
@@ -82,6 +89,37 @@ public class ItemDAO {
         else
             return itemBeans;
     }
+
+    private String selectAvailableItemsByTipeLocationAndTimeRange =
+            "SELECT i.* FROM items i " +
+                    "WHERE i.type = ? " +
+                        "AND i.id NOT IN (" +
+                            "SELECT ri.item_id FROM request_items ri INNER JOIN requests r ON ri.request_id = r.id " +
+                                "WHERE (r.start <= ? " +
+                                "AND r.end >= ?" +
+                                "AND r.status = 1))";
+    public ArrayList<ItemBean> selectAvailableItemsByTipeLocationAndTimeRange(int itemType, int itemLocation, Timestamp start, Timestamp end) throws SQLException {
+
+        String tempQuery = selectAvailableItemsByTipeLocationAndTimeRange;
+        if (itemLocation != -1) {
+            tempQuery += " AND i.location = " + itemLocation;
+        }
+        PreparedStatement preparedStatement = connection.prepareStatement(tempQuery);
+        preparedStatement.setInt(1, itemType);
+        preparedStatement.setTimestamp(2, start);
+        preparedStatement.setTimestamp(3, end);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        ArrayList<ItemBean> itemBeans = new ArrayList<>();
+        while (resultSet.next()){
+            itemBeans.add(createItemBeanFromResultSet(resultSet));
+        }
+        if(itemBeans.size() == 0)
+            return null;
+        else
+            return itemBeans;
+    }
+
+
 
     private final String removeItemByIdQuery = "DELETE FROM items WHERE id = ?";
     public void removeItemById(int id) throws SQLException {
@@ -112,11 +150,18 @@ public class ItemDAO {
             return null;
     }
 
-    private final String selectAllDocumentsByTypeAndLanguageQuery = "SELECT * FROM documents WHERE type = ? AND language = ?";
+    private String selectAllDocumentsByTypeAndLanguageQuery = "SELECT * FROM documents";
     public ArrayList<DocumentBean> selectAllDocumentsByTypeAndLanguage(int type, int language) throws SQLException {
+        if(type != -1) {
+            selectAllDocumentsByTypeAndLanguageQuery += " WHERE type = " + type;
+
+            if(language != -1) {
+                selectAllDocumentsByTypeAndLanguageQuery += " AND language = " + language;
+            }
+        } else if(language != -1) {
+            selectAllDocumentsByTypeAndLanguageQuery += " WHERE language = " + language;
+        }
         PreparedStatement preparedStatement = connection.prepareStatement(selectAllDocumentsByTypeAndLanguageQuery);
-        preparedStatement.setString(1, type != -1 ? String.valueOf(type) : "type" );
-        preparedStatement.setString(2, language != -1 ? String.valueOf(language) : "language" );
         ResultSet resultSet = preparedStatement.executeQuery();
         ArrayList<DocumentBean> documentBeans = new ArrayList<>();
         while (resultSet.next()){
@@ -161,6 +206,36 @@ public class ItemDAO {
         links.put("nonLinkedDocuments", selectAllNonLinkedDocuments(accessoryId));
         return links;
     }
+
+    private final String insertItemsLinkQuery = "INSERT IGNORE INTO items_links (toolId, accessoryId) VALUES (?, ?)";
+    public void linkItem(int itemId, int itemType, ArrayList<Integer> linkedItemsIds, ArrayList<Integer> linkedDocumentsIds) throws SQLException {
+        if(linkedItemsIds != null) {
+            PreparedStatement preparedStatement = connection.prepareStatement(insertItemsLinkQuery);
+            for (int linkedItemId : linkedItemsIds) {
+                preparedStatement.setInt(1, itemType == 0 ? itemId : linkedItemId);
+                preparedStatement.setInt(2, itemType == 0 ? linkedItemId : itemId);
+                preparedStatement.executeUpdate();
+            }
+        }
+        if(linkedDocumentsIds != null) {
+            PreparedStatement preparedStatement = connection.prepareStatement(insertDocumentsLinkQuery);
+            for (int linkedDocumentId : linkedDocumentsIds) {
+                preparedStatement.setInt(1, itemId);
+                preparedStatement.setInt(2, linkedDocumentId);
+                preparedStatement.executeUpdate();
+            }
+        }
+    }
+    private final String insertDocumentsLinkQuery = "INSERT IGNORE INTO documents_links (itemId, documentId) VALUES (?, ?)";
+    public void linkDocument(int documentId, ArrayList<Integer> linkedItemsIds) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(insertDocumentsLinkQuery);
+        for(int itemId : linkedItemsIds) {
+            preparedStatement.setInt(1, itemId);
+            preparedStatement.setInt(2, documentId);
+            preparedStatement.executeUpdate();
+        }
+    }
+
 
     private final String selectAllLinkedToolsToAccessoryQuery = "SELECT * FROM items WHERE id IN (SELECT toolId FROM items_links WHERE accessoryId = ?)";
     private final String selectAllLinkedToolsToDocumentQuery = "SELECT * FROM items WHERE id IN (SELECT itemId FROM documents_links WHERE documentId = ?) AND type = 0";
@@ -291,8 +366,6 @@ public class ItemDAO {
         else
             return documentBeans;
     }
-
-
 
     private ItemBean createItemBeanFromResultSet(ResultSet resultSet) throws SQLException {
         ItemBean itemBean = new ItemBean();

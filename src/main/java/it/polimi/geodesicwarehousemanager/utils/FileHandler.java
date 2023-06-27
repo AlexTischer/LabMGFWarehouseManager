@@ -42,4 +42,8 @@ public class FileHandler {
     public static String getFullPath(String relativePath){
         return System.getProperty("user.home") + File.separator + "Geodesic WareHouse" + File.separator + relativePath;
     }
+
+    public static File getFile(String path) {
+        return new File(getFullPath(path));
+    }
 }

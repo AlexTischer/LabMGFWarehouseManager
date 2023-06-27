@@ -3,6 +3,7 @@ package it.polimi.geodesicwarehousemanager.controllers;
 import com.google.gson.Gson;
 import it.polimi.geodesicwarehousemanager.beans.ItemBean;
 import it.polimi.geodesicwarehousemanager.daos.ItemDAO;
+import it.polimi.geodesicwarehousemanager.enums.Location;
 import jakarta.servlet.UnavailableException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -35,21 +36,31 @@ public class GetAvAccessories extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Map<String, Timestamp> timeRange = null;
-        String timeRangejson = request.getParameter("timeRange");
+        String dataJson = request.getParameter("dataJson");
         ArrayList<ItemBean> accessories = null;
+        Timestamp start = null;
+        Timestamp end = null;
+        Location location = null;
 
-        if(timeRangejson != null && !timeRangejson.isEmpty()){
+        ItemDAO itemDAO = new ItemDAO(connection);
+
+        if(dataJson != null && !dataJson.isEmpty()){
             try {
-                timeRange = new Gson().fromJson(timeRangejson, Map.class);
+                Map<String, Object> data = new Gson().fromJson(dataJson, Map.class);
+                start = Timestamp.valueOf(data.get("start").toString());
+                end = Timestamp.valueOf(data.get("end").toString());
+                location = Location.getLocationFromInt(Integer.parseInt(data.get("location").toString()));
             } catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 e.printStackTrace();
                 return;
             }
-            //TODO: get accessories by time range
+            try {
+                accessories = itemDAO.selectAvailableItemsByTipeLocationAndTimeRange(1,location==null ? -1 : location.getValue(),start, end);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         } else {
-            ItemDAO itemDAO = new ItemDAO(connection);
             try {
                 accessories = itemDAO.selectAllItemsByTypeAndLocation(1,-1);
             } catch (SQLException e) {
