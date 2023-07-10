@@ -20,7 +20,7 @@
 
         if(document.getElementById("password").value === document.getElementById("repeat-password").value) {
 
-            makeCall("POST", contextPath + "/ChangePassword", document.getElementById("changePwdForm"), null,
+            makeCall("POST", contextPath + "/User/ChangePassword", document.getElementById("changePwdForm"), null,
                 function (req) {
                     var messageDiv = document.getElementById("messageDiv");
                     messageDiv.className = "alert alert-success";

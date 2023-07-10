@@ -41,7 +41,7 @@ public class MailHandler {
         Session session = Session.getInstance(props, auth);
         try {
             MimeMessage msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("geodesic.WareHouse@polimi.it"));
+            msg.setFrom(new InternetAddress("geodesic.Warehouse@polimi.it"));
             InternetAddress[] address = {new InternetAddress(recipient)};
             msg.setRecipients(Message.RecipientType.TO, address);
             msg.setSubject(subject);

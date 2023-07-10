@@ -16,7 +16,7 @@ import it.polimi.geodesicwarehousemanager.utils.ConnectionHandler;
 
 
 @MultipartConfig
-@WebServlet(name = "GetUserRequests", value = "/GetUserRequests")
+@WebServlet(name = "GetUserRequests", value = "/User/GetUserRequests")
 public class GetUserRequests extends HttpServlet {
 
     private Connection connection = null;

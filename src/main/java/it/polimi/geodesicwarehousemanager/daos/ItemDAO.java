@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class ItemDAO {
     private final Connection connection;
     public ItemDAO(Connection connection) {
@@ -120,11 +121,25 @@ public class ItemDAO {
     }
 
 
-
     private final String removeItemByIdQuery = "DELETE FROM items WHERE id = ?";
     public void removeItemById(int id) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(removeItemByIdQuery);
         preparedStatement.setInt(1, id);
+        preparedStatement.executeUpdate();
+    }
+
+    public void updateItemById(int id, String name, String description, int itemLocation, String imagePath) throws SQLException {
+        System.out.println("updateItemById");
+        System.out.println("id: " + id + " name: " + name + " description: " + description + " itemLocation: " + itemLocation + " imagePath: " + imagePath);
+        StringBuilder stringBuilder = new StringBuilder("UPDATE items SET ");
+        stringBuilder.append("name = '" + name + "'");
+        stringBuilder.append(", description = '" + description + "'");
+        stringBuilder.append(", location = " + itemLocation);
+        if (imagePath != null) {
+            stringBuilder.append(", imagePath = '" + imagePath + "'");
+        }
+        stringBuilder.append(" WHERE id = " + id);
+        PreparedStatement preparedStatement = connection.prepareStatement(stringBuilder.toString());
         preparedStatement.executeUpdate();
     }
 
@@ -233,6 +248,46 @@ public class ItemDAO {
             preparedStatement.setInt(1, itemId);
             preparedStatement.setInt(2, documentId);
             preparedStatement.executeUpdate();
+        }
+    }
+
+    public ArrayList<Timestamp[]> getUnavailablePeriods(ArrayList<Integer> tools, ArrayList<Integer> accessories) throws SQLException {
+        ArrayList<Timestamp[]> periods = new ArrayList<>();
+
+        ArrayList<Integer> items = new ArrayList();
+        items.addAll(tools);
+        items.addAll(accessories);
+
+        StringBuilder queryBuilder = new StringBuilder();
+        queryBuilder.append("SELECT DISTINCT r.start, r.end ");
+        queryBuilder.append("FROM requests r ");
+        queryBuilder.append("JOIN request_items ri ON r.id = ri.request_id ");
+        queryBuilder.append("WHERE ri.item_id IN (");
+        for (int i = 0; i < items.size(); i++) {
+            queryBuilder.append("?");
+            if (i < items.size() - 1) {
+                queryBuilder.append(", ");
+            }
+        }
+        queryBuilder.append(")");
+
+        String query = queryBuilder.toString();
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            for (int i = 0; i < items.size(); i++) {
+                statement.setInt(i + 1, items.get(i));
+            }
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Timestamp[] period = new Timestamp[2];
+                    period[0] = resultSet.getTimestamp("start");
+                    period[1] = resultSet.getTimestamp("end");
+                    periods.add(period);
+                }
+            }
+
+            return periods;
         }
     }
 
@@ -393,4 +448,5 @@ public class ItemDAO {
 
         return documentBean;
     }
+
 }

@@ -16,7 +16,7 @@ import it.polimi.geodesicwarehousemanager.utils.ConnectionHandler;
 
 
 @MultipartConfig
-@WebServlet(name = "RemoveRequest", value = "/RemoveRequest")
+@WebServlet(name = "RemoveRequest", value = "/User/RemoveRequest")
 public class RemoveRequest extends HttpServlet {
 
     private Connection connection = null;

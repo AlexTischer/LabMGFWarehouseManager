@@ -16,7 +16,7 @@ import it.polimi.geodesicwarehousemanager.utils.ConnectionHandler;
 
 
 @MultipartConfig
-@WebServlet(name = "CreateReport", value = "/CreateReport")
+@WebServlet(name = "CreateReport", value = "/User/CreateReport")
 public class CreateReport extends HttpServlet {
 
     private Connection connection = null;

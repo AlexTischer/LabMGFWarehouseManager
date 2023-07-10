@@ -1,7 +1,6 @@
-package it.polimi.geodesicwarehousemanager.controllers;
+package it.polimi.geodesicwarehousemanager.controllers.users;
 
 import com.google.gson.Gson;
-import it.polimi.geodesicwarehousemanager.beans.ItemBean;
 import it.polimi.geodesicwarehousemanager.daos.ItemDAO;
 import it.polimi.geodesicwarehousemanager.enums.Location;
 import jakarta.servlet.UnavailableException;
@@ -20,10 +19,9 @@ import java.util.Map;
 
 import it.polimi.geodesicwarehousemanager.utils.ConnectionHandler;
 
-
 @MultipartConfig
-@WebServlet(name = "GetAvAccessories", value = "/GetAvAccessories")
-public class GetAvAccessories extends HttpServlet {
+@WebServlet(name = "GetUnAvDates", value = "/User/GetUnAvDates")
+public class GetUnAvDates extends HttpServlet {
 
     private Connection connection = null;
 
@@ -37,9 +35,9 @@ public class GetAvAccessories extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String dataJson = request.getParameter("dataJson");
-        ArrayList<ItemBean> accessories = null;
-        Timestamp start = null;
-        Timestamp end = null;
+        ArrayList<Integer> accessories = new ArrayList<>();
+        ArrayList<Integer> tools = new ArrayList<>();
+        ArrayList<Timestamp[]> dates = new ArrayList<>();
         Location location = null;
 
         ItemDAO itemDAO = new ItemDAO(connection);
@@ -47,36 +45,43 @@ public class GetAvAccessories extends HttpServlet {
         if(dataJson != null && !dataJson.isEmpty()){
             try {
                 Map<String, Object> data = new Gson().fromJson(dataJson, Map.class);
-                start = Timestamp.valueOf(data.get("start").toString());
-                end = Timestamp.valueOf(data.get("end").toString());
                 location = Location.getLocationFromInt(Integer.parseInt(data.get("location").toString()));
+                if(data.get("tools") != null) {
+                    for (Object s : (ArrayList) data.get("tools")) {
+                        tools.add((int) Double.parseDouble(s.toString()));
+                    }
+                }
+                if(data.get("accessories") != null) {
+                    for (Object s : (ArrayList) data.get("accessories")) {
+                        accessories.add((int) Double.parseDouble(s.toString()));
+                    }
+                }
             } catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 e.printStackTrace();
                 return;
             }
-            try {
-                accessories = itemDAO.selectAvailableItemsByTipeLocationAndTimeRange(1,location==null ? -1 : location.getValue(),start, end);
-            } catch (SQLException e) {
-                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                e.printStackTrace();
-                return;
-            }
         } else {
-            try {
-                accessories = itemDAO.selectAllItemsByTypeAndLocation(1,-1);
-            } catch (SQLException e) {
-                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                e.printStackTrace();
-                return;
-            }
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
         }
+
+        try {
+            dates = itemDAO.getUnavailablePeriods(tools, accessories);
+
+        } catch (SQLException e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
+            return;
+        }
+
+        //todo: complete this servlet.
 
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         Gson gson = new Gson();
-        String json = gson.toJson(accessories);
+        String json = gson.toJson(dates);
         response.getWriter().println(json);
     }
 

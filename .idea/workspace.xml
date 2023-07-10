@@ -5,25 +5,42 @@
   </component>
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="GeodesicWareHouseManager:war exploded" />
+      <artifact name="GeodesicWarehouseManager:war exploded" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4bbd4ea9-dba0-4f9f-a300-05420a4096ba" name="Changes" comment="Added partial management of items: ability to add, remove items. &#10;Missing: link (started implementing), edit, documents.&#10;&#10;Added partial implementation of GetAv* servlet.&#10;Missing: consider time Range.&#10;&#10;Created ItemBean, ItemType, ItemDAO, DocumentBean.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/GetFile.java" afterDir="false" />
+    <list default="true" id="4bbd4ea9-dba0-4f9f-a300-05420a4096ba" name="Changes" comment="Implemented linking and editing items (some errors are still present, some refinements are required).&#10;Missing: documents.&#10;&#10;Implemented GetAv* servlet.&#10;Missing: testing, frontEnd&#10;&#10;Created GetFile.&#10;&#10;DropDown Menu in frontEnd now works.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/superUsers/EditItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/GetUnAvDates.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/GetAvTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/GetAvTools.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/superUsers/LinkItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/superUsers/LinkItems.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/GetAvAccessories.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/GetAvAccessories.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/ChangePassword.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/ChangePassword.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/CreateReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/CreateReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/CreateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/CreateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/GetAvDates.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/GetUserRequests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/GetUserRequests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/RemoveRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/users/RemoveRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/daos/ItemDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/daos/ItemDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/utils/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/utils/FileHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/public/utils/makeCall.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/public/utils/makeCall.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/public/utils/tableFormatters.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/public/utils/tableFormatters.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/utils/MailHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/utils/MailHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admins/manageUsersRoles/manageUserRoles.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admins/manageUsersRoles/manageUserRoles.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admins/requestsHistory/requestsHistory.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admins/requestsHistory/requestsHistory.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/public/index/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/public/index/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/public/login/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/public/login/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/public/register/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/public/register/register.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/superusers/manageItems/edit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/superusers/manageItems/edit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/superusers/manageItems/link.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/superusers/manageItems/link.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/superusers/manageItems/manageItems.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/superusers/manageItems/manageItems.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/users/changePassword/changePassword.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/users/changePassword/changePassword.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/users/changePassword/changePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/users/changePassword/changePassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/users/homepage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/users/homepage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/users/newRequest/calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/users/newRequest/calendar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/users/newRequest/newRequest.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/users/newRequest/newRequest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/users/waitForRole.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/users/waitForRole.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +102,9 @@
   &quot;keyToStringList&quot;: {
     &quot;DatabaseDriversLRU&quot;: [
       &quot;mysql&quot;
+    ],
+    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect&quot;: [
+      &quot;MySQL&quot;
     ]
   }
 }</component>
@@ -100,15 +120,15 @@
       <recent name="C:\Users\aless\IdeaProjects\Geodesic WareHouse Manager\src\main\webapp\public\register" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="it.polimi.geodesicwarehousemanager.controllers" />
       <recent name="it.polimi.geodesicwarehousemanager.controllers.superUsers" />
+      <recent name="it.polimi.geodesicwarehousemanager.controllers" />
       <recent name="it.polimi.geodesicwarehousemanager.controllers.users" />
     </key>
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 10.1.7">
     <configuration name="MainTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.polimi.geodesicwarehousemanager.MainTest" />
-      <module name="GeodesicWareHouseManager" />
+      <module name="GeodesicWarehouseManager" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="it.polimi.geodesicwarehousemanager.*" />
@@ -120,14 +140,13 @@
       </method>
     </configuration>
     <configuration name="Tomcat 10.1.7" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.7" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/GeodesicWareHouseManager" />
-      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/GeodesicWarehouseManager" />
       <option name="SHOW_DIALOG_ON_UPDATE" value="false" />
-      <option name="UPDATING_POLICY" value="redeploy-artifacts" />
+      <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
-        <artifact name="GeodesicWareHouseManager:war exploded">
+        <artifact name="GeodesicWarehouseManager:war exploded">
           <settings>
-            <option name="CONTEXT_PATH" value="/GeodesicWareHouseManager" />
+            <option name="CONTEXT_PATH" value="/GeodesicWarehouseManager" />
           </settings>
         </artifact>
       </deployment>
@@ -205,7 +224,7 @@
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
-          <artifact name="GeodesicWareHouseManager:war exploded" />
+          <artifact name="GeodesicWarehouseManager:war exploded" />
         </option>
       </method>
     </configuration>
@@ -253,7 +272,16 @@
       <workItem from="1686908524094" duration="3636000" />
       <workItem from="1687766344764" duration="112000" />
       <workItem from="1687766527549" duration="3585000" />
-      <workItem from="1687852898398" duration="12276000" />
+      <workItem from="1687852898398" duration="15023000" />
+      <workItem from="1688025524547" duration="47000" />
+      <workItem from="1688387593783" duration="8946000" />
+      <workItem from="1688461500595" duration="3492000" />
+      <workItem from="1688545333366" duration="12000" />
+      <workItem from="1688667897654" duration="137000" />
+      <workItem from="1688668057636" duration="77000" />
+      <workItem from="1688756715779" duration="8352000" />
+      <workItem from="1688765835664" duration="946000" />
+      <workItem from="1689022441660" duration="341000" />
     </task>
     <task id="LOCAL-00001" summary="Added full users management">
       <created>1684508979586</created>
@@ -269,7 +297,15 @@
       <option name="project" value="LOCAL" />
       <updated>1685959411599</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Implemented linking and editing items (some errors are still present, some refinements are required).&#10;Missing: documents.&#10;&#10;Implemented GetAv* servlet.&#10;Missing: testing, frontEnd&#10;&#10;Created GetFile.&#10;&#10;DropDown Menu in frontEnd does not work.">
+      <option name="closed" value="true" />
+      <created>1687876390010</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1687876390010</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -278,35 +314,16 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added full users management" />
     <MESSAGE value="Added partial management of items: ability to add, remove items. &#10;Missing: link (started implementing), edit, documents.&#10;&#10;Added partial implementation of GetAv* servlet.&#10;Missing: consider time Range.&#10;&#10;Created ItemBean, ItemType, ItemDAO, DocumentBean." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added partial management of items: ability to add, remove items. &#10;Missing: link (started implementing), edit, documents.&#10;&#10;Added partial implementation of GetAv* servlet.&#10;Missing: consider time Range.&#10;&#10;Created ItemBean, ItemType, ItemDAO, DocumentBean." />
+    <MESSAGE value="Implemented linking and editing items (some errors are still present, some refinements are required).&#10;Missing: documents.&#10;&#10;Implemented GetAv* servlet.&#10;Missing: testing, frontEnd&#10;&#10;Created GetFile.&#10;&#10;DropDown Menu in frontEnd does not work." />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented linking and editing items (some errors are still present, some refinements are required).&#10;Missing: documents.&#10;&#10;Implemented GetAv* servlet.&#10;Missing: testing, frontEnd&#10;&#10;Created GetFile.&#10;&#10;DropDown Menu in frontEnd does not work." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/daos/ItemDAO.java</url>
-          <line>241</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/daos/ItemDAO.java</url>
-          <line>313</line>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/daos/ItemDAO.java</url>
-          <line>334</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/daos/ItemDAO.java</url>
-          <line>351</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/daos/ItemDAO.java</url>
-          <line>289</line>
-          <option name="timeStamp" value="21" />
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/geodesicwarehousemanager/controllers/superUsers/EditItem.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

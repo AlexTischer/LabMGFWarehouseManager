@@ -18,9 +18,8 @@ import java.sql.SQLException;
 
 import it.polimi.geodesicwarehousemanager.utils.ConnectionHandler;
 
-//todo: /User to apply filter
 @MultipartConfig
-@WebServlet(name = "ChangePassword", value = "/ChangePassword")
+@WebServlet(name = "ChangePassword", value = "/User/ChangePassword")
 public class ChangePassword extends HttpServlet {
 
     private Connection connection = null;

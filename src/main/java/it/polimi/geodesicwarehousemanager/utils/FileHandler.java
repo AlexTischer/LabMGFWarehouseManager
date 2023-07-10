@@ -12,7 +12,7 @@ public class FileHandler {
 
         String userHome = System.getProperty("user.home");
 
-        String uploadFolder = userHome + File.separator + "Geodesic WareHouse" + File.separator + relativePath;
+        String uploadFolder = userHome + File.separator + "Geodesic Warehouse" + File.separator + relativePath;
         File uploadDir = new File(uploadFolder);
         if (!uploadDir.exists()) uploadDir.mkdirs();
         Path filePath = Paths.get(uploadFolder, fileName);
@@ -40,7 +40,7 @@ public class FileHandler {
     }
 
     public static String getFullPath(String relativePath){
-        return System.getProperty("user.home") + File.separator + "Geodesic WareHouse" + File.separator + relativePath;
+        return System.getProperty("user.home") + File.separator + "Geodesic Warehouse" + File.separator + relativePath;
     }
 
     public static File getFile(String path) {

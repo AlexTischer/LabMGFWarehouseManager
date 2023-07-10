@@ -14,9 +14,8 @@ import java.sql.SQLException;
 
 import it.polimi.geodesicwarehousemanager.utils.ConnectionHandler;
 
-
 @MultipartConfig
-@WebServlet(name = "CreateRequest", value = "/CreateRequest")
+@WebServlet(name = "CreateRequest", value = "/User/CreateRequest")
 public class CreateRequest extends HttpServlet {
 
     private Connection connection = null;

@@ -1,3 +1,8 @@
+//todo: add option to set items in maintenance mode and to bring them back from maintenance mode:
+//  modal window with:
+//      text area for reason of maintenance,
+//      datepickers for start and end of maintenance
+//      confirm/cancel buttons
 
 (function () {
     window.editActionEvents = {
@@ -37,7 +42,7 @@
 
                 const nameInput = document.createElement("input");
                 nameInput.setAttribute("type", "text");
-                nameInput.setAttribute("id", "name");
+                nameInput.setAttribute("id", "edited_name");
                 nameInput.setAttribute("name", "name");
                 nameInput.setAttribute("value", row.name);
                 nameInput.setAttribute("required", "required");
@@ -55,7 +60,7 @@
                 descriptionDiv.appendChild(descriptionLabel);
 
                 const descriptionInput = document.createElement("textarea");
-                descriptionInput.setAttribute("id", "description");
+                descriptionInput.setAttribute("id", "edited_description");
                 descriptionInput.setAttribute("name", "description");
                 descriptionInput.textContent = row.description;
                 descriptionInput.setAttribute("required", "required");
@@ -80,7 +85,7 @@
 
                 const photoInput = document.createElement("input");
                 photoInput.setAttribute("type", "file");
-                photoInput.setAttribute("id", "photo");
+                photoInput.setAttribute("id", "edited_photo");
                 photoInput.setAttribute("name", "photo");
                 photoInput.setAttribute("value", row.photo);
                 photoDiv.appendChild(photoInput);
@@ -95,7 +100,7 @@
                 locationDiv.appendChild(locationLabel);
 
                 const locationInput = document.createElement("select");
-                locationInput.setAttribute("id", "location");
+                locationInput.setAttribute("id", "edited_location");
                 locationInput.setAttribute("name", "location");
                 locationInput.setAttribute("required", "required");
                 locationInput.setAttribute("class", "form-control");
@@ -131,13 +136,14 @@
                 saveButton.innerHTML = "Save changes";
                 saveButton.addEventListener("click", function () {
                     document.getElementById("modalWindow").style.display = "none";
-                    /*makeCall("POST", contextPath + "/SuperUser/EditItem" + "?id=" + row.id,
-                        document.getElementById("editItemForm"), null, function () {
+                    makeCall("POST", contextPath + "/SuperUser/EditItem" + "?id=" + row.id, form, null,
+                        function () {
                             edit();
-                        }, function () {
+                        },
+                        function () {
                             console.log("error");
                         }
-                    );*/
+                    );
                 });
                 modalFooter.appendChild(saveButton);
 
