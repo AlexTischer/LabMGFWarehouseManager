@@ -12,7 +12,9 @@ public enum DocumentType {
     @SerializedName("Manual")
     MANUAL(2),
     @SerializedName("Safety")
-    SAFETY(3);
+    SAFETY(3),
+    @SerializedName("Request")
+    REQUEST(4);
     private final int value;
 
     DocumentType(int value) {
@@ -30,6 +32,8 @@ public enum DocumentType {
                 return DocumentType.MANUAL;
             case 3:
                 return DocumentType.SAFETY;
+            case 4:
+                return DocumentType.REQUEST;
         }
         return null;
     }

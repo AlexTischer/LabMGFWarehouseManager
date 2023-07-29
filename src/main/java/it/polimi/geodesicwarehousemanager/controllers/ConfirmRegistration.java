@@ -2,8 +2,10 @@ package it.polimi.geodesicwarehousemanager.controllers;
 
 import com.google.gson.Gson;
 import it.polimi.geodesicwarehousemanager.beans.UserBean;
+import it.polimi.geodesicwarehousemanager.daos.NotificationDAO;
 import it.polimi.geodesicwarehousemanager.daos.TokenDAO;
 import it.polimi.geodesicwarehousemanager.daos.UserDAO;
+import it.polimi.geodesicwarehousemanager.enums.NotificationType;
 import it.polimi.geodesicwarehousemanager.enums.UserRole;
 import it.polimi.geodesicwarehousemanager.utils.MailHandler;
 import jakarta.servlet.ServletException;
@@ -35,9 +37,10 @@ public class ConfirmRegistration extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         int verificationCode = 0;
 
-        try{
+        try {
             verificationCode = Integer.parseInt(request.getParameter("verificationCode"));
         } catch (NumberFormatException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -47,7 +50,7 @@ public class ConfirmRegistration extends HttpServlet {
 
         UserBean user = (UserBean) request.getSession().getAttribute("user");
         TokenDAO tokenDAO = new TokenDAO(connection);
-        if(tokenDAO.checkRegistrationToken(user.getId(), verificationCode)){
+        if (tokenDAO.checkRegistrationToken(user.getId(), verificationCode)) {
 
             tokenDAO.removeRegistrationToken(user.getId());
 
@@ -58,15 +61,32 @@ public class ConfirmRegistration extends HttpServlet {
             user.setRole(UserRole.NONE);
 
             UserDAO userDAO = new UserDAO(connection);
-            userDAO.assignRole(user.getId(), user.getRole());
+            try {
+                userDAO.assignRole(user.getId(), user.getRole());
+            } catch (SQLException e) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                response.getWriter().println("Not possible to confirm registration");
+            }
 
             MailHandler.sendMail(userDAO.getAdminsEmails(),
                     "New user registered to Geodesic Warehouse Manager",
                     "A new user has registered to Geodesic Warehouse Manager with the following data:\n" +
                             "Name: " + user.getName() + "\n" +
                             "Email: " + user.getEmail() + ".\n" +
-                    "Login to the application to assign a role to the new User."
+                            "Login to the application to assign a role to the new User."
             );
+
+            NotificationDAO notificationDAO = new NotificationDAO(connection);
+            try {
+                notificationDAO.addNotification(userDAO.getAdminsId(), NotificationType.NEW_USER, "A new user has registered to Geodesic Warehouse Manager with the following data:\n" +
+                        "Name: " + user.getName() + "\n" +
+                        "Email: " + user.getEmail() + ".\n" +
+                        "Go to Manage Users Roles page to assign a role to the new User.");
+            } catch (SQLException e) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                response.getWriter().println("Not possible to confirm registration");
+            }
+
             UserBean userCopy = user.clone();
             response.setContentType("application/json");
             Gson gson = new Gson();

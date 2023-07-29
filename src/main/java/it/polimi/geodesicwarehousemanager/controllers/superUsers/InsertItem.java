@@ -14,12 +14,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 import it.polimi.geodesicwarehousemanager.utils.ConnectionHandler;
 import jakarta.servlet.http.Part;
@@ -98,7 +95,7 @@ public class InsertItem extends HttpServlet {
         ItemDAO itemDAO = new ItemDAO(connection);
 
         try {
-            if (itemDAO.selectItemByInventoryNumber(inventoryNumber) != null) {
+            if (itemDAO.getItemByInventoryNumber(inventoryNumber) != null) {
                 response.setStatus(HttpServletResponse.SC_CONFLICT);
                 System.out.println("item already exists");
                 return;
@@ -117,9 +114,10 @@ public class InsertItem extends HttpServlet {
             return;
         }
 
-        ItemBean itemBean = null;
+        ItemBean item = null;
+
         try {
-            itemBean = itemDAO.selectItemByInventoryNumber(inventoryNumber);
+            item = itemDAO.getItemByInventoryNumber(inventoryNumber);
         } catch (SQLException e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             e.printStackTrace();
@@ -130,7 +128,7 @@ public class InsertItem extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json");
         Gson gson = new Gson();
-        String json = gson.toJson(itemBean);
+        String json = gson.toJson(item);
         response.getWriter().println(json);
 
     }

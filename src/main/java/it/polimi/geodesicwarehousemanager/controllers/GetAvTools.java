@@ -13,8 +13,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -35,37 +38,34 @@ public class GetAvTools extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String dataJson = request.getParameter("dataJson");
-        ArrayList<ItemBean> tools = null;
+        ArrayList<ItemBean> tools;
+        String startString = request.getParameter("start");
+        String endString = request.getParameter("end");
         Timestamp start = null;
         Timestamp end = null;
-        Location location = null;
+
         ItemDAO itemDAO = new ItemDAO(connection);
 
-        if(dataJson != null && !dataJson.isEmpty()){
+        if(startString != null && endString != null) {
             try {
-                Map<String, Object> data = new Gson().fromJson(dataJson, Map.class);
-                start = Timestamp.valueOf(data.get("start").toString());
-                end = Timestamp.valueOf(data.get("end").toString());
-                location = Location.getLocationFromInt(Integer.parseInt(data.get("location").toString()));
+                startString = startString.concat(" 00:00:00.1");
+                start = Timestamp.valueOf(startString);
+                endString = (LocalDate.parse(endString, DateTimeFormatter.ISO_DATE).minusDays(1)).toString();
+                endString = endString.concat(" 23:59:59.0");
+                end = Timestamp.valueOf(endString);
             } catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 e.printStackTrace();
                 return;
             }
-            try {
-                tools = itemDAO.selectAvailableItemsByTipeLocationAndTimeRange(0,location==null ? -1 : location.getValue(),start, end);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            try {
-                tools = itemDAO.selectAllItemsByTypeAndLocation(0,-1);
-            } catch (SQLException e) {
-                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                e.printStackTrace();
-                return;
-            }
+        }
+
+        try {
+            tools = itemDAO.getAvailableToolsByTimeRange(start, end);
+        } catch (SQLException e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
+            return;
         }
 
         response.setStatus(HttpServletResponse.SC_OK);
@@ -73,7 +73,7 @@ public class GetAvTools extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         Gson gson = new Gson();
         String json = gson.toJson(tools);
-        response.getWriter().write(json);
+        response.getWriter().println(json);
     }
 
     public void destroy() {

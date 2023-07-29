@@ -1,15 +1,18 @@
 package it.polimi.geodesicwarehousemanager.beans;
 
+import it.polimi.geodesicwarehousemanager.enums.ReportStatus;
+
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 public class ReportBean {
     private int id;
-    private Timestamp reportDate;
-    private int reporterId;
-    private int reportedItemId;
-    private String object;
-    private String message;
-    private boolean isSolved;
+    private Timestamp date;
+    private UserBean reportingUser;
+    private ArrayList<ItemBean> reportedItems;
+    private String subject;
+    private String body;
+    private ReportStatus status;
 
     public int getId() {
         return id;
@@ -18,45 +21,45 @@ public class ReportBean {
         this.id = id;
     }
 
-    public Timestamp getReportDate() {
-        return reportDate;
+    public Timestamp getDate() {
+        return date;
     }
-    public void setReportDate(Timestamp reportDate) {
-        this.reportDate = reportDate;
-    }
-
-    public int getReporterId() {
-        return reporterId;
-    }
-    public void setReporterId(int reporterId) {
-        this.reporterId = reporterId;
+    public void setDate(Timestamp date) {
+        this.date = date;
     }
 
-    public int getReportedItemId() {
-        return reportedItemId;
+    public UserBean getReportingUser() {
+        return reportingUser;
     }
-    public void setReportedItemId(int reportedItemId) {
-        this.reportedItemId = reportedItemId;
-    }
-
-    public String getObject() {
-        return object;
-    }
-    public void setObject(String object) {
-        this.object = object;
+    public void setReportingUser(UserBean reportingUser) {
+        this.reportingUser = reportingUser;
     }
 
-    public String getMessage() {
-        return message;
+    public ArrayList<ItemBean> getReportedItems() {
+        return reportedItems;
     }
-    public void setMessage(String message) {
-        this.message = message;
+    public void setReportedItems(ArrayList<ItemBean> reportedItems) {
+        this.reportedItems = reportedItems;
     }
 
-    public boolean isSolved() {
-        return isSolved;
+    public String getSubject() {
+        return subject;
     }
-    public void setSolved(boolean solved) {
-        isSolved = solved;
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getBody() {
+        return body;
+    }
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public ReportStatus getStatus() {
+        return status;
+    }
+    public void setStatus(ReportStatus reportStatus) {
+        this.status = reportStatus;
     }
 }

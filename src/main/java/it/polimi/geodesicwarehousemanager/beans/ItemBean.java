@@ -12,11 +12,11 @@ public class ItemBean {
     private Location location;
     private String imagePath;
     private boolean isLinked;
+    private boolean isInMaintenance;
 
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -24,7 +24,6 @@ public class ItemBean {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -32,7 +31,6 @@ public class ItemBean {
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -40,7 +38,6 @@ public class ItemBean {
     public int getType() {
         return type;
     }
-
     public void setType(int type) {
         this.type = type;
     }
@@ -48,7 +45,6 @@ public class ItemBean {
     public String getSerialNumber() {
         return serialNumber;
     }
-
     public void setSerialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
     }
@@ -56,7 +52,6 @@ public class ItemBean {
     public String getInventoryNumber() {
         return inventoryNumber;
     }
-
     public void setInventoryNumber(String inventoryNumber) {
         this.inventoryNumber = inventoryNumber;
     }
@@ -64,7 +59,6 @@ public class ItemBean {
     public int getLocation() {
         return location.getValue();
     }
-
     public void setLocation(int location) {
         this.location = Location.getLocationFromInt(location);
     }
@@ -72,7 +66,6 @@ public class ItemBean {
     public String getImagePath() {
         return imagePath;
     }
-
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
@@ -80,8 +73,14 @@ public class ItemBean {
     public boolean getIsLinked() {
         return isLinked;
     }
-
     public void setIsLinked(boolean isLinked) {
         this.isLinked = isLinked;
+    }
+
+    public boolean getIsInMaintenance() {
+        return isInMaintenance;
+    }
+    public void setIsInMaintenance(boolean isInMaintenance) {
+        this.isInMaintenance = isInMaintenance;
     }
 }

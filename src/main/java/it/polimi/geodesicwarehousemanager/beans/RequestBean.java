@@ -7,13 +7,12 @@ import it.polimi.geodesicwarehousemanager.enums.RequestStatus;
 
 public class RequestBean {
     private int id;
-    private Timestamp start;
-    private Timestamp end;
-    private RequestStatus requestStatus;
+    private String start;
+    private String end;
+    private RequestStatus status;
     private String reason;
-    private int userId;
-    private ArrayList<Integer> tools;
-    private ArrayList<Integer> accessories;
+    private UserBean requestingUser;
+    private ArrayList<ItemBean> requestedItems;
 
     public int getId() {
         return id;
@@ -22,25 +21,25 @@ public class RequestBean {
         this.id = id;
     }
 
-    public Timestamp getStart() {
+    public String getStart() {
         return start;
     }
-    public void setStart(Timestamp start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
-    public Timestamp getEnd() {
+    public String getEnd() {
         return end;
     }
-    public void setEnd(Timestamp end) {
+    public void setEnd(String end) {
         this.end = end;
     }
 
-    public RequestStatus getRequestStatus() {
-        return requestStatus;
+    public RequestStatus getStatus() {
+        return status;
     }
-    public void setApprovalStatus(RequestStatus requestStatus) {
-        this.requestStatus = requestStatus;
+    public void setStatus(RequestStatus status) {
+        this.status = status;
     }
 
     public String getReason() {
@@ -50,24 +49,18 @@ public class RequestBean {
         this.reason = reason;
     }
 
-    public int getUserId() {
-        return userId;
+    public UserBean getRequestingUser() {
+        return requestingUser;
     }
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public ArrayList<Integer> getTools() {
-        return tools;
-    }
-    public void setTools(ArrayList<Integer> tools) {
-        this.tools = tools;
+    public void setRequestingUser(UserBean requestingUser) {
+        this.requestingUser = requestingUser;
     }
 
-    public ArrayList<Integer> getAccessories() {
-        return accessories;
+    public ArrayList<ItemBean> getRequestedItems() {
+        return requestedItems;
     }
-    public void setAccessories(ArrayList<Integer> accessories) {
-        this.accessories = accessories;
+    public void setRequestedItems(ArrayList<ItemBean> requestedItems) {
+        this.requestedItems = requestedItems;
     }
+
 }

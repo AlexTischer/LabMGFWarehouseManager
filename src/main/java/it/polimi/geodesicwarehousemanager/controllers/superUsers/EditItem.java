@@ -55,7 +55,7 @@ public class EditItem extends HttpServlet {
             } catch (NumberFormatException e) {
                 itemLocation = -1;
             }
-            if (id < 0 || itemDAO.selectItemById(id) == null) {
+            if (id < 0 || itemDAO.getItemById(id) == null) {
                 throw new Exception();
             }
             if (Location.getLocationFromInt(itemLocation) == null) {

@@ -1,6 +1,9 @@
 package it.polimi.geodesicwarehousemanager.controllers.superUsers;
 
+import com.google.gson.Gson;
+import it.polimi.geodesicwarehousemanager.beans.DocumentBean;
 import it.polimi.geodesicwarehousemanager.daos.ItemDAO;
+import it.polimi.geodesicwarehousemanager.enums.DocumentLanguage;
 import it.polimi.geodesicwarehousemanager.enums.DocumentType;
 import it.polimi.geodesicwarehousemanager.enums.ItemType;
 import it.polimi.geodesicwarehousemanager.enums.Location;
@@ -36,7 +39,7 @@ public class InsertDocument extends HttpServlet {
         }
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String name = "";
         String documentTypeString = "";
         int documentType = 0;
@@ -45,14 +48,14 @@ public class InsertDocument extends HttpServlet {
 
         try {
             name = request.getParameter("name");
-            documentTypeString = request.getParameter("documentType");
-            documentType = Integer.parseInt(documentTypeString);
             language = request.getParameter("language");
             documentLanguage = Integer.parseInt(language);
+            documentTypeString = request.getParameter("documentType");
+            documentType = Integer.parseInt(documentTypeString);
             if (documentTypeString.isBlank() || language.isBlank()) {
                 throw new Exception();
             }
-            if (DocumentType.getDocumentTypeFromInt(documentType) == null || Location.getLocationFromInt(documentLanguage) == null) {
+            if (DocumentType.getDocumentTypeFromInt(documentType) == null || DocumentLanguage.getDocumentLanguageFromInt(documentLanguage) == null) {
                 throw new Exception();
             }
         } catch (Exception e) {
@@ -92,9 +95,10 @@ public class InsertDocument extends HttpServlet {
         System.out.println("filePath: " + filePath);
 
         ItemDAO documentDAO = new ItemDAO(connection);
+        DocumentBean document;
 
         try {
-            documentDAO.insertDocument(name, filePath, documentType, documentLanguage);
+            document = documentDAO.insertDocument(name, filePath, documentType, documentLanguage);
         } catch (SQLException e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             e.printStackTrace();
@@ -102,6 +106,10 @@ public class InsertDocument extends HttpServlet {
         }
 
         response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("application/json");
+        Gson gson = new Gson();
+        String json = gson.toJson(document);
+        response.getWriter().println(json);
     }
 
     public void destroy() {

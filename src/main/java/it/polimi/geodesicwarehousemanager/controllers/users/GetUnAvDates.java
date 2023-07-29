@@ -2,7 +2,6 @@ package it.polimi.geodesicwarehousemanager.controllers.users;
 
 import com.google.gson.Gson;
 import it.polimi.geodesicwarehousemanager.daos.ItemDAO;
-import it.polimi.geodesicwarehousemanager.enums.Location;
 import jakarta.servlet.UnavailableException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,10 +9,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -33,50 +32,56 @@ public class GetUnAvDates extends HttpServlet {
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String dataJson = request.getParameter("dataJson");
-        ArrayList<Integer> accessories = new ArrayList<>();
-        ArrayList<Integer> tools = new ArrayList<>();
-        ArrayList<Timestamp[]> dates = new ArrayList<>();
-        Location location = null;
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        BufferedReader reader = request.getReader();
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line);
+        }
+        String dataJson = sb.toString();
+
+        ArrayList<Double> doubleItems;
+        ArrayList<Map<String, String>> dates;
 
         ItemDAO itemDAO = new ItemDAO(connection);
 
-        if(dataJson != null && !dataJson.isEmpty()){
+        if(!dataJson.isEmpty()){
             try {
-                Map<String, Object> data = new Gson().fromJson(dataJson, Map.class);
-                location = Location.getLocationFromInt(Integer.parseInt(data.get("location").toString()));
-                if(data.get("tools") != null) {
-                    for (Object s : (ArrayList) data.get("tools")) {
-                        tools.add((int) Double.parseDouble(s.toString()));
-                    }
-                }
-                if(data.get("accessories") != null) {
-                    for (Object s : (ArrayList) data.get("accessories")) {
-                        accessories.add((int) Double.parseDouble(s.toString()));
-                    }
-                }
+                doubleItems = new Gson().fromJson(dataJson, ArrayList.class);
             } catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 e.printStackTrace();
                 return;
             }
         } else {
+            System.out.println("dataJson is null or empty");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
 
-        try {
-            dates = itemDAO.getUnavailablePeriods(tools, accessories);
+        if(!doubleItems.isEmpty()) {
+            try {
+                ArrayList<Integer> items = new ArrayList<>();
+                for (Double d : doubleItems) {
+                    items.add(d.intValue());
+                }
+                dates = itemDAO.getUnavailablePeriods(items);
 
-        } catch (SQLException e) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            e.printStackTrace();
-            return;
+            } catch (SQLException e) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                e.printStackTrace();
+                return;
+            } catch (Exception e) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                e.printStackTrace();
+                return;
+            }
+        } else {
+            dates = new ArrayList<>();
         }
 
-        //todo: complete this servlet.
-
+        response.setStatus(HttpServletResponse.SC_OK);
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");

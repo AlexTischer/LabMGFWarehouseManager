@@ -1,6 +1,7 @@
 //param formElement is optional and used when form data needs to be sent
 //param data is optional and used when json data needs to be sent
-function makeCall(method, url, formElement = null, data = null, okcback, errcback = null, responseType = null ) {
+//param responseType is optional and used when the response is not text
+function makeCall(method, url, formElement = null, data = null, okcback, errcback = null) {
     var req = new XMLHttpRequest();
 
     req.onreadystatechange = function() {
@@ -21,10 +22,6 @@ function makeCall(method, url, formElement = null, data = null, okcback, errcbac
 
 
     req.open(method, url);
-
-    if (responseType !== null) {
-        req.responseType = responseType;
-    }
 
     if (formElement != null) {
         let formData = new FormData(formElement);

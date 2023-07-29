@@ -1,8 +1,8 @@
-package it.polimi.geodesicwarehousemanager.controllers.superUsers;
+package it.polimi.geodesicwarehousemanager.controllers.users;
 
 import com.google.gson.Gson;
-import it.polimi.geodesicwarehousemanager.beans.ReportBean;
-import it.polimi.geodesicwarehousemanager.daos.ReportDAO;
+import it.polimi.geodesicwarehousemanager.beans.ItemBean;
+import it.polimi.geodesicwarehousemanager.daos.ItemDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.UnavailableException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -14,14 +14,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import it.polimi.geodesicwarehousemanager.utils.ConnectionHandler;
 
 
 @MultipartConfig
-@WebServlet(name = "GetReports", value = "/SuperUser/GetReports")
-public class GetReports extends HttpServlet {
+@WebServlet(name = "GetItem", value = "/User/GetItem")
+public class GetItem extends HttpServlet {
 
     private Connection connection = null;
 
@@ -34,28 +33,33 @@ public class GetReports extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-        ReportDAO reportDAO = new ReportDAO(connection);
-        ArrayList<ReportBean> reports;
+        String idString = request.getParameter("id");
+        int id;
+
         try {
-             reports = reportDAO.getAllReports();
-        } catch (SQLException e) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            id = Integer.parseInt(idString);
+        } catch (NumberFormatException e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            e.printStackTrace();
             return;
         }
-        Gson gson = new Gson();
-        String json = gson.toJson(reports);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
+
+        ItemDAO itemDAO = new ItemDAO(connection);
+
         try {
-            response.getWriter().write(json);
-        } catch (IOException e) {
+            ItemBean item = itemDAO.getItemById(id);
+            if (item == null) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return;
+            }
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().println(new Gson().toJson(item));
+        } catch (SQLException | IOException e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
         }
-
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-
     }
 
     public void destroy() {

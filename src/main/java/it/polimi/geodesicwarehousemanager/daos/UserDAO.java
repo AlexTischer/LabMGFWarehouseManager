@@ -24,6 +24,7 @@ public class UserDAO {
     private static final String UPDATE_USER_ROLE = "UPDATE users SET role = ? WHERE id = ?";
     private static final String UPDATE_USER_PASSWORD = "UPDATE users SET password = ? WHERE id = ?";
     private static final String SELECT_ADMINS_EMAILS = "SELECT email FROM users WHERE role = 3";
+    private static final String SELECT_ADMINS_ID = "SELECT id FROM users WHERE role = 3";
 
     /**Inserts User in DB.*/
     public void insertUser(UserBean user) throws UnavailableException {
@@ -58,20 +59,17 @@ public class UserDAO {
     }
 
     /**Selects a User based on its id*/
-    public UserBean getUserById(int id) throws UnavailableException {
+    public UserBean getUserById(int id) throws SQLException {
         UserBean user = new UserBean();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                user = createUserBean(resultSet, true);
+                user = createUserBean(resultSet, false);
             }
             else{
                 return null;
             }
-        } catch (SQLException e) {
-            throw new UnavailableException("Error with SQL");
-        }
         return user;
     }
 
@@ -89,14 +87,11 @@ public class UserDAO {
         return users;
     }
 
-    public void assignRole(int id, UserRole role) throws UnavailableException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_ROLE)) {
-            preparedStatement.setInt(1, role.getValue());
-            preparedStatement.setInt(2, id);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new UnavailableException("Error with SQL");
-        }
+    public void assignRole(int id, UserRole role) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_ROLE);
+        preparedStatement.setInt(1, role.getValue());
+        preparedStatement.setInt(2, id);
+        preparedStatement.executeUpdate();
     }
 
     public ArrayList<String> getAdminsEmails() throws UnavailableException {
@@ -112,14 +107,24 @@ public class UserDAO {
         return adminsEmails;
     }
 
-    UserBean createUserBean(ResultSet resultSet, boolean addPassword) throws SQLException {
+    public ArrayList<Integer> getAdminsId() throws SQLException {
+        ArrayList<Integer> adminsId = new ArrayList<>();
+        PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ADMINS_ID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                adminsId.add(resultSet.getInt("id"));
+            }
+        return adminsId;
+    }
+
+    UserBean createUserBean(ResultSet resultSet, boolean addSensitive) throws SQLException {
         UserBean user = new UserBean();
-        user.setId(resultSet.getInt("id"));
         user.setName(resultSet.getString("name"));
         user.setSurname(resultSet.getString("surname"));
         user.setEmail(resultSet.getString("email"));
-        if(addPassword){
+        if(addSensitive){
             user.setPassword(resultSet.getString("password"));
+            user.setId(resultSet.getInt("id"));
         }
         user.setRole(UserRole.getUserRoleFromInt(resultSet.getInt("role")));
         return user;
@@ -134,4 +139,6 @@ public class UserDAO {
             throw new UnavailableException("Error with SQL");
         }
     }
+
+
 }

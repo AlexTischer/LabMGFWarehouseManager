@@ -1,9 +1,8 @@
-package it.polimi.geodesicwarehousemanager.controllers;
+package it.polimi.geodesicwarehousemanager.controllers.admins;
 
 import com.google.gson.Gson;
-import it.polimi.geodesicwarehousemanager.beans.ItemBean;
-import it.polimi.geodesicwarehousemanager.daos.ItemDAO;
-import it.polimi.geodesicwarehousemanager.enums.Location;
+import it.polimi.geodesicwarehousemanager.beans.RequestBean;
+import it.polimi.geodesicwarehousemanager.daos.RequestDAO;
 import jakarta.servlet.UnavailableException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,19 +11,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Map;
 
 import it.polimi.geodesicwarehousemanager.utils.ConnectionHandler;
 
-@MultipartConfig
-@WebServlet(name = "GetAvAccessories", value = "/GetAvAccessories")
-public class GetAvAccessories extends HttpServlet {
 
+@MultipartConfig
+@WebServlet(name = "GetRequestsByTimeRange", value = "/Admin/GetRequestsByTimeRange")
+public class GetRequestsByTimeRange extends HttpServlet {
     private Connection connection = null;
 
     public void init() {
@@ -36,22 +33,30 @@ public class GetAvAccessories extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ArrayList<ItemBean> accessories = null;
-        String idString = request.getParameter("id");
         String startString = request.getParameter("start");
         String endString = request.getParameter("end");
-        int toolId = -1;
-        Timestamp start = null;
-        Timestamp end = null;
-
-        ItemDAO itemDAO = new ItemDAO(connection);
-
-        if (startString != null && endString != null) {
+        Timestamp start;
+        Timestamp end;
+        if (startString == null || endString == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        } else {
             try {
+                startString = startString.substring(0, 10);
                 startString = startString.concat(" 00:00:00.1");
                 start = Timestamp.valueOf(startString);
+                endString = endString.substring(0, 10);
                 endString = endString.concat(" 23:59:59.0");
                 end = Timestamp.valueOf(endString);
+
+                RequestDAO requestDAO = new RequestDAO(connection);
+                ArrayList<RequestBean> requests = requestDAO.getRequestsByTimeRange(start, end);
+
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(new Gson().toJson(requests));
+                response.setStatus(HttpServletResponse.SC_OK);
+
             } catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 e.printStackTrace();
@@ -59,26 +64,8 @@ public class GetAvAccessories extends HttpServlet {
             }
         }
 
-        try {
-            toolId = Integer.parseInt(idString);
-            accessories = itemDAO.getAvailableAccessoriesByToolAndTimeRange(toolId, start, end);
-        } catch (NumberFormatException e){
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            e.printStackTrace();
-            return;
-        } catch (SQLException e) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            e.printStackTrace();
-            return;
-        }
-
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        Gson gson = new Gson();
-        String json = gson.toJson(accessories);
-        response.getWriter().println(json);
     }
+
 
     public void destroy() {
         try {

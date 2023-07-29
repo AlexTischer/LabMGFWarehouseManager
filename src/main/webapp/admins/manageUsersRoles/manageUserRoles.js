@@ -22,7 +22,10 @@
         }
     );
 
-    document.getElementById("setRoles_btn").addEventListener("click", function() {
+    document.getElementById("setRoles_btn").addEventListener("click", function(e) {
+        e.preventDefault();
+
+        console.log("setRoles_btn clicked");
 
         openConfirmPrompt("Are you sure you want to assign those roles?", function () {
             const selects = document.getElementById("usersTable").querySelectorAll('select');

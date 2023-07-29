@@ -1,8 +1,8 @@
 (function () {
-    var user = sessionStorage.getItem("user");
-    var userDiv = document.getElementById("userDiv");
-    var superUserDiv = document.getElementById("superUserDiv");
-    var adminDiv = document.getElementById("adminDiv");
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    const userDiv = document.getElementById("userDiv");
+    const superUserDiv = document.getElementById("superUserDiv");
+    const adminDiv = document.getElementById("adminDiv");
 
     if (user.role === "User") {
         userDiv.style.display = "block";
@@ -13,10 +13,6 @@
         userDiv.style.display = "block";
         superUserDiv.style.display = "block";
         adminDiv.style.display = "block";
-    }
-
-    document.getElementById("changePassword_btn").onclick = function () {
-        window.location.href = contextPath + "/users/changePassword/changePassword.html";
     }
 
 

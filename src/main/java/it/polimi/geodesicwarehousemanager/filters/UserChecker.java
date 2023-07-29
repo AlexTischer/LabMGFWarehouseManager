@@ -105,7 +105,13 @@ public class UserChecker extends HttpFilter {
             UserDAO userDAO = new UserDAO(connection);
             int id = tokenDAO.getUserIdByChangePwdToken(token);
             if(id!=-1) {
-                UserBean user = userDAO.getUserById(id);
+                UserBean user;
+                try {
+                     user = userDAO.getUserById(id);
+                } catch (SQLException e) {
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    return false;
+                }
                 if (user != null) {
                     request.getSession().setAttribute("user", user);
                     return true;
@@ -128,7 +134,13 @@ public class UserChecker extends HttpFilter {
                     UserDAO userDAO = new UserDAO(connection);
                     int id = tokenDAO.getUserIdByRememberMeToken(c.getValue());
                     if(id!=-1) {
-                        UserBean user = userDAO.getUserById(id);
+                        UserBean user;
+                        try {
+                            user = userDAO.getUserById(id);
+                        } catch (SQLException e) {
+                            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                            return false;
+                        }
                         if (user != null) {
                             /* TODO decide if to refresh token
                             c.setMaxAge(60 * 60 * 24 * 30);

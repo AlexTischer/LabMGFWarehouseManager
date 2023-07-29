@@ -32,11 +32,12 @@ public class SetUsersRoles extends HttpServlet {
         }
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Map<String, String> RolesMap;
-        RolesMap = new Gson().fromJson(request.getReader(), Map.class);
+        Map<String, String> rolesMap;
+        rolesMap = new Gson().fromJson(request.getReader(), Map.class);
+
         int userId;
         int userRole;
-        for (Map.Entry entry : RolesMap.entrySet()) {
+        for (Map.Entry entry : rolesMap.entrySet()) {
             try {
                 userId = Integer.parseInt((String) entry.getKey());
                 userRole = Integer.parseInt(entry.getValue().toString());
@@ -45,16 +46,18 @@ public class SetUsersRoles extends HttpServlet {
                     throw new ClassCastException("Invalid role");
                 } else {
                     UserDAO userDAO = new UserDAO(connection);
-                    userDAO.assignRole(userId, UserRole.getUserRoleFromInt(userRole));
+                    try {
+                        userDAO.assignRole(userId, UserRole.getUserRoleFromInt(userRole));
+                    } catch (SQLException e) {
+                        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                        response.getWriter().println("Failure in database access while assigning roles");
+                        return;
+                    }
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 response.getWriter().println("Invalid userId");
-                return;
-            } catch (UnavailableException e) {
-                response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
-                response.getWriter().println("Failure in database access while assigning roles");
                 return;
             }
         }

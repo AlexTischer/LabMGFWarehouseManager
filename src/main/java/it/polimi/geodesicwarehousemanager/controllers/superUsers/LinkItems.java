@@ -1,7 +1,9 @@
 package it.polimi.geodesicwarehousemanager.controllers.superUsers;
 
 import com.google.gson.Gson;
+import it.polimi.geodesicwarehousemanager.beans.DocumentBean;
 import it.polimi.geodesicwarehousemanager.daos.ItemDAO;
+import it.polimi.geodesicwarehousemanager.daos.RequestDAO;
 import it.polimi.geodesicwarehousemanager.enums.ItemType;
 import jakarta.servlet.UnavailableException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -34,12 +36,12 @@ public class LinkItems extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id = 0;
-        int type = 0;
+        int id;
+        int type;
         try {
             id = Integer.parseInt(request.getParameter("id"));
             type = Integer.parseInt(request.getParameter("type"));
-            if (ItemType.getItemTypeFromInt(type) == null) {
+            if (type < 0 || type > 3 || id < 0) {
                 throw new Exception();
             }
         } catch (Exception e) {
@@ -60,6 +62,22 @@ public class LinkItems extends HttpServlet {
                 case 2:
                     links = itemDAO.getDocumentLinks(id);
                     break;
+                case 3:
+                    ArrayList<DocumentBean> documents = new ArrayList<>();
+                    RequestDAO requestDAO = new RequestDAO(connection);
+                    for(int item : requestDAO.getItemsIdByRequestId(id)){
+                        ArrayList<DocumentBean> doc = itemDAO.getDocumentsByItemId(item);
+                        if(doc != null) {
+                            documents.addAll(doc);
+                        }
+                    }
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    Gson gson = new Gson();
+                    String json = gson.toJson(documents);
+                    response.getWriter().println(json);
+                    return;
             }
         } catch (SQLException e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

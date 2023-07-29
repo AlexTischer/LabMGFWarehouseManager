@@ -1,27 +1,7 @@
-//todo: add option to set items in maintenance mode and to bring them back from maintenance mode:
-//  modal window with:
-//      text area for reason of maintenance,
-//      datepickers for start and end of maintenance
-//      confirm/cancel buttons
-
 (function () {
     window.editActionEvents = {
         'click .edit': function (e, value, row, index) {
             openModal(function () {
-                makeCall("GET", contextPath + "/GetFile" + "?path=" + encodeURIComponent(row.imagePath), null, null,
-                    function (req) {
-                        var reader = new FileReader();
-                        reader.onload = function(e) {
-                            photo.setAttribute('src', e.target.result);
-                        };
-                        reader.readAsDataURL(req.response);
-                    },
-                    function () {
-                        console.log("error");
-                    }, "blob"
-                );
-
-
                 console.log(JSON.stringify(row));
 
                 const modalTitle = document.getElementById("modal_title");
@@ -81,6 +61,7 @@
                 photo.setAttribute("class", "img-thumbnail");
                 photo.setAttribute("width", "200");
                 photo.setAttribute("height", "auto");
+                photo.setAttribute("src", contextPath + "/GetFile" + "?path=" + encodeURIComponent(row.imagePath));
                 photoDiv.appendChild(photo);
 
                 const photoInput = document.createElement("input");
@@ -190,6 +171,99 @@
                 modalFooter.appendChild(linkButton);
             });
         },
+        'click .maintenance': function (e, value, row, index) {
+            if(row.isInMaintenance){
+                openConfirmPrompt("Are you sure you want to bring this item back from maintenance?", function () {
+                    makeCall("POST", contextPath + "/SuperUser/UpdateMaintenance" + "?id=" + row.id + "&status=" + 0, null, null,
+                        function () {
+                            edit();
+                        },
+                        function () {
+                            console.log("error");
+                        });
+                });
+            } else {
+                openModal(function () {
+                    const modalTitle = document.getElementById("modal_title");
+                    modalTitle.innerHTML = "Maintenance for " + row.name;
+
+                    const modal = document.getElementById("modal_content_body");
+
+                    var form = document.createElement("form");
+                    form.setAttribute("id", "maintenanceForm");
+
+                    const reasonDiv = document.createElement("div");
+                    reasonDiv.setAttribute("class", "mb-3");
+
+                    const reasonLabel = document.createElement("label");
+                    reasonLabel.setAttribute("for", "reason");
+                    reasonLabel.innerHTML = "Reason:";
+                    reasonDiv.appendChild(reasonLabel);
+
+                    const reasonInput = document.createElement("textarea");
+                    reasonInput.setAttribute("id", "reason");
+                    reasonInput.setAttribute("name", "reason");
+                    reasonInput.setAttribute("required", "required");
+                    reasonInput.setAttribute("class", "form-control");
+                    reasonDiv.appendChild(reasonInput);
+                    form.appendChild(reasonDiv);
+
+                    const startDiv = document.createElement("div");
+                    startDiv.setAttribute("class", "mb-3");
+
+                    const startLabel = document.createElement("label");
+                    startLabel.setAttribute("for", "start");
+                    startLabel.innerHTML = "Start:";
+                    startDiv.appendChild(startLabel);
+
+                    const startInput = document.createElement("input");
+                    startInput.setAttribute("type", "date");
+                    startInput.setAttribute("id", "start");
+                    startInput.setAttribute("name", "start");
+                    startInput.setAttribute("required", "required");
+                    startInput.setAttribute("class", "form-control");
+                    startDiv.appendChild(startInput);
+                    form.appendChild(startDiv);
+
+                    const endDiv = document.createElement("div");
+                    endDiv.setAttribute("class", "mb-3");
+
+                    const endLabel = document.createElement("label");
+                    endLabel.setAttribute("for", "end");
+                    endLabel.innerHTML = "End:";
+                    endDiv.appendChild(endLabel);
+
+                    const endInput = document.createElement("input");
+                    endInput.setAttribute("type", "date");
+                    endInput.setAttribute("id", "end");
+                    endInput.setAttribute("name", "end");
+                    endInput.setAttribute("required", "required");
+                    endInput.setAttribute("class", "form-control");
+                    endDiv.appendChild(endInput);
+                    form.appendChild(endDiv);
+
+                    modal.appendChild(form);
+
+                    const modalFooter = document.getElementById("modal_footer");
+
+                    const saveButton = document.createElement("button");
+                    saveButton.setAttribute("type", "button");
+                    saveButton.setAttribute("class", "btn btn-primary");
+                    saveButton.innerHTML = "Save changes";
+                    saveButton.addEventListener("click", function () {
+                        document.getElementById("modalWindow").style.display = "none";
+                        makeCall("POST", contextPath + "/SuperUser/UpdateMaintenance" + "?id=" + row.id + "&status=" + 1, form, null,
+                            function () {
+                                edit();
+                            },
+                            function () {
+                                console.log("error");
+                            });
+                    });
+                    modalFooter.appendChild(saveButton);
+                });
+            }
+        },
         'click .remove': function (e, value, row, index) {
             openConfirmPrompt("Are you sure you want to remove this item?", function () {
                 makeCall("POST", contextPath + (row.type !== 2 ? "/SuperUser/RemoveItem" : "/SuperUser/RemoveDocument") + "?id=" + row.id , null, null,
@@ -216,6 +290,17 @@
     $('#editItemsTable').bootstrapTable({
         columns: jsonColumns,
         search: true,
+        rowStyle: function (row, index) {
+            if (row.isInMaintenance) {
+                return {
+                    classes: 'table-warning'
+                };
+            } else {
+                return {
+                    classes: ''
+                };
+            }
+        }
     });
 })();
 
