@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>it.polimi</groupId>
-    <artifactId>GeodesicWarehouseManager</artifactId>
+    <artifactId>LabMGFWarehouseManager</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Geodesic Warehouse Manager</name>
+    <name>Lab MGF Warehouse Manager</name>
     <packaging>war</packaging>
 
     <properties>

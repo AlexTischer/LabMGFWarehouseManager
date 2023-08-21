@@ -1,5 +1,5 @@
 let calendar;
-var dateRangeString = "";
+let dateRangeString = "";
 
 
 (function (){
@@ -42,15 +42,14 @@ var dateRangeString = "";
             requestEndDate = null;
             dateRangeString = "";
             getAvailableTools();
-        }
+        },
     });
 
     calendar.render();
 })();
 
+
 function updateCalendar(){
-
-
     makeCall("POST", contextPath + "/User/GetUnAvDates", null, Array.from(requestedItems),
         function (req) {
                     const jsonData = JSON.parse(req.responseText);

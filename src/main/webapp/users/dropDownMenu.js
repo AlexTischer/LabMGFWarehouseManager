@@ -56,8 +56,6 @@
 
     dropdownMenuList.appendChild(LogoutElement);
 
-
-    //todo: add drop-start menu with notifications list
     let notifications = [];
 
 
@@ -112,11 +110,7 @@
                                             proceedButton.setAttribute("class", "btn btn-primary");
                                             proceedButton.innerHTML = "Proceed";
                                             proceedButton.addEventListener("click", function () {
-                                                if(notification.type !== "Generic") {
-                                                    window.location.href = contextPath + notification.url;
-                                                } else {
-                                                    window.location.reload();
-                                                }
+                                                window.location.href = contextPath + notification.url;
                                             });
                                             modalFooter.appendChild(proceedButton);
                                         });

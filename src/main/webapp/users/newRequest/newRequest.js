@@ -1,6 +1,6 @@
-var requestedItems = [];
-var requestStartDate = null;
-var requestEndDate = null;
+let requestedItems = [];
+let requestStartDate = null;
+let requestEndDate = null;
 
 (function () {
 
@@ -10,9 +10,8 @@ var requestEndDate = null;
         if(requestedItems.length === 0 || requestStartDate === null || requestEndDate === null || reason.value === ""){
             console.log("requested Items: " + requestedItems + "\n", "requested start Date: " + requestStartDate + "\n", requestEndDate, reason.value)
             openAlertPrompt("Error", "Please fill all the fields and select at least one item");
-            return;
         } else {
-            requestMap = new Map();
+            const requestMap = new Map();
             requestMap.set("items", requestedItems);
             requestMap.set("start", requestStartDate);
             requestMap.set("end", requestEndDate);

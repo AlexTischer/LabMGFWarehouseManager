@@ -2,16 +2,16 @@
 //param data is optional and used when json data needs to be sent
 //param responseType is optional and used when the response is not text
 function makeCall(method, url, formElement = null, data = null, okcback, errcback = null) {
-    var req = new XMLHttpRequest();
+    const req = new XMLHttpRequest();
 
     req.onreadystatechange = function() {
         if (req.readyState == XMLHttpRequest.DONE) {
             if (req.status === 200) {
                 okcback(req);
             } else if (errcback === undefined) {
-                var reader = new FileReader();
+                const reader = new FileReader();
                 reader.onload = function (e) {
-                    var errorMessage = reader.result;
+                    const errorMessage = reader.result;
                     window.alert(errorMessage);
                 };
             } else {
@@ -33,7 +33,7 @@ function makeCall(method, url, formElement = null, data = null, okcback, errcbac
             }
         }
 
-        for(var pair of formData.entries()) {
+        for(let pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]);
         }
 

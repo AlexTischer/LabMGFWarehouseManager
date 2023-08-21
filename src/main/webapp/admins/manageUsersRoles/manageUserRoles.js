@@ -34,7 +34,7 @@
                 let id = selection.id.split('_')[1];
                 let role = selection.value;
                 rolesMap.set(id, role);
-            };
+            }
             console.log(rolesMap);
             makeCall("POST", contextPath + "/Admin/SetUsersRoles", null, Array.from(rolesMap),
                 function (req) {

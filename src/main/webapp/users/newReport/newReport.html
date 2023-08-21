@@ -20,20 +20,27 @@
 <body>
 <div id="container_div" class="container text-center p-3">
 
+    <div class="container">
+        <div class="row">
+            <h2 class="display-4">Create New Report</h2>
+        </div>
+        <div class="row">
+            <h4 class="display-6">Select the request you had when you encountered the issue, select the affected item(s), give a title to the report and describe the issue </h4>
+        </div>
+    </div>
 
 
-
-    <select id="requestSelect" class="form-select mt-4">
-
-    </select>
+        <div class="row">
+            <select id="requestSelect" class="form-select mt-4 mb-4"></select>
+        </div>
 
     <table id="itemsTable" class="table table-striped"></table>
     <form id="reportForm">
-        <div class="row">
+        <div class="row mt-4">
             <label for="reportSubject" class="form-label">Report Subject</label>
             <textarea id="reportSubject" name="reportSubject" class="form-control" rows="3"></textarea>
         </div>
-        <div class="row">
+        <div class="row mt-4">
             <label for="reportBody" class="form-label">Report Body</label>
             <textarea id="reportBody" name="reportBody" class="form-control" rows="3"></textarea>
         </div>

@@ -52,10 +52,10 @@
 
 
 // Get the modal
-var modal = document.getElementById("modalWindow");
+const modal = document.getElementById("modalWindow");
 
 // Get the <span> element that closes the modal
-var closeBtn = document.getElementById("modal_close_btn");
+const closeBtn = document.getElementById("modal_close_btn");
 
 // When the user clicks on <span> (x), close the modal
 closeBtn.onclick = function() {
@@ -80,8 +80,8 @@ function openModal(cback){
 
 function openConfirmPrompt(text, cback){
     openModal(function () {
-        var modal = document.getElementById("modal_content_body");
-        var modalTitle = document.getElementById("modal_title");
+        const modal = document.getElementById("modal_content_body");
+        const modalTitle = document.getElementById("modal_title");
 
         modalTitle.innerHTML = "Confirm operation";
 
@@ -89,11 +89,11 @@ function openConfirmPrompt(text, cback){
             <h6 class="text-start">${text}</h6>
         `;
 
-        var confirm_btn = document.createElement("button");
+        const confirm_btn = document.createElement("button");
         confirm_btn.textContent = "Confirm";
         confirm_btn.className = "btn btn-danger";
 
-        var cancel_btn = document.createElement("button");
+        const cancel_btn = document.createElement("button");
         cancel_btn.textContent = "Cancel";
         cancel_btn.className = "btn btn-secondary";
         cancel_btn.addEventListener('click', (e) => {
@@ -112,8 +112,8 @@ function openConfirmPrompt(text, cback){
 
 function openAlertPrompt(title, content){
     openModal(function () {
-        var modal = document.getElementById("modal_content_body");
-        var modalTitle = document.getElementById("modal_title");
+        const modal = document.getElementById("modal_content_body");
+        const modalTitle = document.getElementById("modal_title");
 
         modalTitle.innerHTML = title;
 
@@ -121,7 +121,7 @@ function openAlertPrompt(title, content){
             <h6 class="text-start">${content}</h6>
         `;
 
-        var confirm_btn = document.createElement("button");
+        const confirm_btn = document.createElement("button");
         confirm_btn.textContent = "Ok";
         confirm_btn.className = "btn btn-primary";
 
@@ -135,8 +135,8 @@ function openAlertPrompt(title, content){
 
 function openSuccessPrompt(title, content){
     openModal(function () {
-        var modal = document.getElementById("modal_content_body");
-        var modalTitle = document.getElementById("modal_title");
+        const modal = document.getElementById("modal_content_body");
+        const modalTitle = document.getElementById("modal_title");
 
         modalTitle.innerHTML = title;
 
@@ -144,7 +144,7 @@ function openSuccessPrompt(title, content){
             <h6 class="text-start">${content}</h6>
         `;
 
-        var confirm_btn = document.createElement("button");
+        const confirm_btn = document.createElement("button");
         confirm_btn.textContent = "Ok";
         confirm_btn.className = "btn btn-primary";
 

@@ -4,7 +4,7 @@
         window.location.href = contextPath + "/public/login/login.html";
     };
 
-    registrationInProgress = sessionStorage.getItem("registrationInProgress");
+    const registrationInProgress = sessionStorage.getItem("registrationInProgress");
 
     if (registrationInProgress === null) {
 
@@ -18,7 +18,7 @@
                 makeCall("POST", contextPath + "/Register", document.getElementById("registerForm"), null,
                     confirm,
                     function (req) {
-                        var messageDiv = document.getElementById("messageDiv");
+                        const messageDiv = document.getElementById("messageDiv");
                         messageDiv.className = "alert alert-danger";
                         messageDiv.innerHTML = "";
                         messageDiv.innerHTML = `<h6 class="mx-auto">${req.responseText}</h6>`;
@@ -27,7 +27,7 @@
                 );
             } else {
                 document.getElementById("repeat-password").className = "form-control is-invalid";
-                var messageDiv = document.getElementById("messageDiv");
+                const messageDiv = document.getElementById("messageDiv");
                 messageDiv.className = "alert alert-danger";
                 messageDiv.innerHTML = "";
                 messageDiv.innerHTML = `<h6 class="mx-auto">Passwords do not match</h6>`;

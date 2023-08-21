@@ -9,7 +9,7 @@
 
                 const modal = document.getElementById("modal_content_body");
 
-                var form = document.createElement("form");
+                const form = document.createElement("form");
                 form.setAttribute("id", "editItemForm");
 
                 const nameDiv = document.createElement("div");
@@ -189,7 +189,7 @@
 
                     const modal = document.getElementById("modal_content_body");
 
-                    var form = document.createElement("form");
+                    const form = document.createElement("form");
                     form.setAttribute("id", "maintenanceForm");
 
                     const reasonDiv = document.createElement("div");
@@ -278,7 +278,22 @@
         }
     };
 
-    const jsonColumns = [
+    window.editDocumentActionEvents = {
+        'click .remove': function (e, value, row, index) {
+            openConfirmPrompt("Are you sure you want to remove this document?", function () {
+                makeCall("POST", contextPath + "/SuperUser/RemoveDocument" + "?id=" + row.id , null, null,
+                    function (req) {
+                        edit();
+                    },
+                    function (req) {
+                        console.log("error");
+                    }
+                );
+            });
+        }
+    }
+
+    const jsonItemsColumns = [
         {field: 'name', title: 'Name', sortable: true},
         {field: 'description', title: 'Description', sortable: true},
         {field: 'serialNumber', title: 'Serial Number', sortable: true},
@@ -288,7 +303,7 @@
     ];
 
     $('#editItemsTable').bootstrapTable({
-        columns: jsonColumns,
+        columns: jsonItemsColumns,
         search: true,
         rowStyle: function (row, index) {
             if (row.isInMaintenance) {
@@ -302,6 +317,21 @@
             }
         }
     });
+
+
+    const jsonDocumentsColumns = [
+        {field: 'name', title: 'Name', sortable: true},
+        {field: 'language', title: 'Language', sortable: true},
+        {field: 'type', title: 'Type', sortable: true},
+        {field: 'action', formatter: "editDocumentActionFormatter", events: "editDocumentActionEvents"}
+    ];
+
+    $('#editDocumentsTable').bootstrapTable({
+        columns: jsonDocumentsColumns,
+        search: true
+    });
+
+
 })();
 
 function edit() {
@@ -320,13 +350,28 @@ function edit() {
                     $(function () {
                         $('#editItemsTable').bootstrapTable('load', jsonData);
                     });
+                    document.getElementById("editItemDiv").style.display = "block";
+                    document.getElementById("editDocumentDiv").style.display = "none";
                 },
                 function () {
                     console.log("error");
                 }
             );
         } else {
-            //todo: get documents
+            makeCall("GET", contextPath + "/SuperUser/GetDocuments", null, null,
+                function (req) {
+                    const jsonData = JSON.parse(req.responseText);
+                    console.log(jsonData);
+                    $(function () {
+                        $('#editDocumentsTable').bootstrapTable('load', jsonData);
+                    });
+                    document.getElementById("editItemDiv").style.display = "none";
+                    document.getElementById("editDocumentDiv").style.display = "block";
+                },
+                function () {
+                    console.log("error");
+                }
+            );
         }
     });
 

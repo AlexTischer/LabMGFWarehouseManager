@@ -1,5 +1,3 @@
-//todo: check why items are not always correctly selected from db
-
 function linkTool(item){
 
     console.log(item);

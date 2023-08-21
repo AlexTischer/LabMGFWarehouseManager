@@ -1,3 +1,6 @@
+let lastExpandedRequest;
+
+
 (function() {
 
     window.requestActionEvents = {
@@ -17,7 +20,7 @@
         {field: 'end', title: 'End Date', sortable: true},
         {field: 'status', title: 'Status', sortable: true},
         {field: 'requestingUser', title: 'Requesting User', formatter: userFormatter, sortable: true},
-        {field: 'actions', title: 'Actions', formatter: requestActionsFormatter, events: requestActionEvents}
+        {field: 'actions', title: 'Actions', formatter: adminRequestActionsFormatter, events: requestActionEvents}
     ];
 
     $('#requestsTable').bootstrapTable({
@@ -28,7 +31,13 @@
         checkboxHeader: false,
         detailView: true,
         detailViewIcon: true,
-        detailFormatter: "requestDetailFormatter",
+        detailFormatter: "adminRequestDetailFormatter",
+        onExpandRow: function (index, row, $detail) {
+            if(lastExpandedRequest !== undefined && lastExpandedRequest !== row){
+                $('#requestsTable').bootstrapTable('collapseRowByUniqueId', lastExpandedRequest.id);
+            }
+            lastExpandedRequest = row;
+        },
     });
 
     let calendar = document.getElementById("calendar");
@@ -43,6 +52,7 @@
                 start: 'title',
                 end: 'prevYear prev today next nextYear',
             },
+            height: 'auto',
             datesSet: function(info) {
                 makeCall("GET", contextPath + "/Admin/GetRequestsByTimeRange" + "?start=" + info.startStr + "&end=" + info.endStr, null, null,
                     function (req) {
@@ -73,8 +83,6 @@
                                 }
 
                                 calendar.render();
-
-
                             },
                     function (req) {
                                 console.error(req);
@@ -210,8 +218,8 @@ function updateRequestStatus(id, status, items = null) {
 
 function openUpdateRequestModal(id, status, documentsDiv = null) {
     openModal(function () {
-        var modal = document.getElementById("modal_content_body");
-        var modalTitle = document.getElementById("modal_title");
+        const modal = document.getElementById("modal_content_body");
+        const modalTitle = document.getElementById("modal_title");
 
         modalTitle.innerHTML = "Update Request";
 
@@ -230,11 +238,11 @@ function openUpdateRequestModal(id, status, documentsDiv = null) {
         adminNotesDiv.appendChild(adminNotes);
         modal.appendChild(adminNotesDiv);
 
-        var confirm_btn = document.createElement("button");
+        const confirm_btn = document.createElement("button");
         confirm_btn.textContent = "Confirm";
         confirm_btn.className = "btn btn-primary";
 
-        var cancel_btn = document.createElement("button");
+        const cancel_btn = document.createElement("button");
         cancel_btn.textContent = "Cancel";
         cancel_btn.className = "btn btn-secondary";
 
@@ -252,6 +260,8 @@ function openUpdateRequestModal(id, status, documentsDiv = null) {
                 }
 
                 const form = document.getElementById("documentsForm");
+
+                if(form.file.files.length !== 0){
                 makeCall("POST", contextPath + "/SuperUser/InsertDocument" + "?id=" + id + "&type=" + "3", form, null,
                     function (req) {
                         const response = JSON.parse(req.responseText);
@@ -262,6 +272,10 @@ function openUpdateRequestModal(id, status, documentsDiv = null) {
                         console.error(req);
                     }
                 );
+                } else {
+                    sendUpdateRequestStatus(id, status, adminNotes.value, documents);
+                }
+
 
             } else {
             sendUpdateRequestStatus(id, status, adminNotes.value);

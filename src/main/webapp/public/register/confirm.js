@@ -16,8 +16,8 @@ function confirm() {
                 window.location.href = contextPath + "/users/homepage.html";
             },
             function (req) {
-                    var messageDiv = document.getElementById("messageDiv");
-                    messageDiv.className = "alert alert-danger";
+                const messageDiv = document.getElementById("messageDiv");
+                messageDiv.className = "alert alert-danger";
                     messageDiv.innerHTML = "";
                     messageDiv.innerHTML = `<h6 class="mx-auto">${req.responseText}</h6>`;
                     messageDiv.style.display = "flex";

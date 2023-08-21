@@ -2,7 +2,7 @@
 
     const jsonColumns = [
         {field: 'linked', checkbox: true},
-        {field: 'type', title: 'Type', sortable: true, formatter: "typeFormatter"},
+        {field: 'type', title: 'Type', sortable: true, formatter: "itemTypeFormatter"},
         {field: 'image', title: 'Image', sortable: false, formatter: "imageFormatter"},
         {field: 'name', title: 'Name', sortable: true},
         {field: 'description', title: 'Description', sortable: true},
@@ -36,23 +36,28 @@
         }
     );
 
-
     document.getElementById("requestSelect").addEventListener("change", function() {
         const request = requests[this.value];
-        $('#itemsTable').bootstrapTable('load', request.items);
+        console.log(request);
+        console.log(request.requestedItems);
+        $('#itemsTable').bootstrapTable('load', (request.requestedItems));
     });
 
     document.getElementById("submit_btn").addEventListener("click", function(e) {
         e.preventDefault();
 
-        data = JSON.stringify({"items": $('#itemsTable').bootstrapTable('getSelections').map(item => item.id)});
+        const data = JSON.stringify({"items": $('#itemsTable').bootstrapTable('getSelections').map(item => item.id)});
 
-        makeCall("POST", contextPath + "/User/CreateReport", document.getElementById("reportForm"), data,
-            function (req) {
-                openSuccessPrompt("Report created", "Your report has been created successfully");
-            },
+        openConfirmPrompt("Are you sure you want to submit this report?",
             function () {
-                console.log("error");
+                    makeCall("POST", contextPath + "/User/CreateReport", document.getElementById("reportForm"), data,
+                        function (req) {
+                            openSuccessPrompt("Report created", "Your report has been created successfully");
+                        },
+                        function () {
+                            console.log("error");
+                        }
+                    )
             }
         );
     });

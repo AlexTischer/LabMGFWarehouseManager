@@ -4,10 +4,10 @@
             add();
             document.getElementById("addItemDiv").style.display = "block";
             document.getElementById("editItemDiv").style.display = "none";
+            document.getElementById("editDocumentDiv").style.display = "none";
         } else if (this.value === "edit") {
             edit();
             document.getElementById("addItemDiv").style.display = "none";
-            document.getElementById("editItemDiv").style.display = "block";
         }
     });
 
