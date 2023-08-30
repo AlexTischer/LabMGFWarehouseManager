@@ -105,7 +105,7 @@ public class CreateRequest extends HttpServlet {
 
                 NotificationDAO notificationDAO = new NotificationDAO(connection);
 
-                notificationDAO.addNotification(userDAO.getAdminsId(), NotificationType.NEW_REPORT, "New Request received from " + user.getName() + " " + user.getSurname() + "<br/>" +
+                notificationDAO.addNotification(userDAO.getAdminsId(), NotificationType.NEW_REQUEST, "New Request received from " + user.getName() + " " + user.getSurname() + "<br/>" +
                             "Reason: " + reason + "<br/>" +
                             "Go to Manage Users Requests page to take actions");
             } catch (SQLException e) {
