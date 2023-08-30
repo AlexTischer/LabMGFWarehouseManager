@@ -83,9 +83,6 @@ let lastExpandedRequest;
                                 }
 
                                 calendar.render();
-                            },
-                    function (req) {
-                                console.error(req);
                             }
                 );
             }
@@ -109,7 +106,12 @@ function updateRequestStatus(id, status, items = null) {
                 const documentsDiv = document.createElement("div");
                 documentsDiv.className = "mb-3";
 
+                const title = document.createElement("h5");
+                title.classList.add("display-6");
+
                 if (jsonData.length !== 0) {
+
+                    title.innerHTML = "Select the documents you want to link to this request and/or attach a new one.";
 
                     const documentsTable = document.createElement("table");
                     documentsTable.className = "table";
@@ -133,7 +135,11 @@ function updateRequestStatus(id, status, items = null) {
 
                     documentsDiv.appendChild(documentsTable);
 
+                } else {
+                    title.innerHTML = "Attach a document to this request (optional)";
                 }
+
+                documentsDiv.insertBefore(title, documentsDiv.firstChild)
 
                 const form = document.createElement("form");
                 form.id = "documentsForm";
@@ -202,8 +208,6 @@ function updateRequestStatus(id, status, items = null) {
                 form.appendChild(fileLabel);
                 form.appendChild(fileInput);
 
-                //todo: add title and comment
-
                 documentsDiv.appendChild(form);
 
                 modal.appendChild(documentsDiv);
@@ -267,9 +271,6 @@ function openUpdateRequestModal(id, status, documentsDiv = null) {
                         const response = JSON.parse(req.responseText);
                         documents.push(response.id);
                         sendUpdateRequestStatus(id, status, adminNotes.value, documents);
-                    },
-                    function (req) {
-                        console.error(req);
                     }
                 );
                 } else {
@@ -299,9 +300,6 @@ function sendUpdateRequestStatus(id, status, adminNotes = null, documents = null
         makeCall("POST", contextPath + "/Admin/UpdateRequest", null, Array.from(responseMap),
             function (req) {
                 openSuccessPrompt("Request updated", "The request has been updated successfully");
-            },
-            function (req) {
-                console.error(req);
             }
         );
     });

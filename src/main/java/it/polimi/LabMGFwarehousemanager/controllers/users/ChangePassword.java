@@ -25,7 +25,7 @@ public class ChangePassword extends HttpServlet {
 
     public void init() {
         try {
-            connection = ConnectionHandler.getConnection(getServletContext());
+            connection = ConnectionHandler.getConnection();
         } catch (UnavailableException e) {
             throw new RuntimeException(e);
         }
@@ -50,10 +50,7 @@ public class ChangePassword extends HttpServlet {
         } else if(!password.equals(repeatPassword)){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().println("Passwords do not match");
-        } else if (changePasswordToken != null && !changePasswordToken.isBlank() && tokenDAO.getUserIdByChangePwdToken(changePasswordToken) != user.getId()){
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().println("Invalid token");
-        } else {
+        }else {
             String hashedPassword = PasswordHandler.encryptPassword(password);
             try {
                 userDAO.changeUserPassword(user.getId(), hashedPassword);

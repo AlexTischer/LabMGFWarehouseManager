@@ -91,9 +91,6 @@ function getAvailableTools(){
             }
             updateRequestedItems();
 
-        },
-        function () {
-            console.log("error");
         }
     );
 }
@@ -155,9 +152,6 @@ function getAvailableAccessories(id){
                 document.getElementById(id + "_detailsDiv").appendChild(accessoriesTable);
 
             }
-        },
-        function () {
-            console.log("error");
         }
     );
 }

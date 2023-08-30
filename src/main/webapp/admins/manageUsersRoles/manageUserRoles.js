@@ -16,10 +16,7 @@
                         search: true,
                     });
                 });
-            },
-        function (req) {
-            console.log("error");
-        }
+            }
     );
 
     document.getElementById("setRoles_btn").addEventListener("click", function(e) {
@@ -39,9 +36,6 @@
             makeCall("POST", contextPath + "/Admin/SetUsersRoles", null, Array.from(rolesMap),
                 function (req) {
                     console.log("ok:" + req.responseText);
-                },
-                function (req) {
-                    console.log("error" + req.responseText);
                 }
             );
         });

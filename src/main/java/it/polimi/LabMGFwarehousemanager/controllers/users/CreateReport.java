@@ -7,6 +7,7 @@ import it.polimi.LabMGFwarehousemanager.daos.ReportDAO;
 import it.polimi.LabMGFwarehousemanager.daos.UserDAO;
 import it.polimi.LabMGFwarehousemanager.enums.NotificationType;
 import it.polimi.LabMGFwarehousemanager.utils.MailHandler;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.UnavailableException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -32,7 +33,7 @@ public class CreateReport extends HttpServlet {
 
     public void init() {
         try {
-            connection = ConnectionHandler.getConnection(getServletContext());
+            connection = ConnectionHandler.getConnection();
         } catch (UnavailableException e) {
             throw new RuntimeException(e);
         }
@@ -112,6 +113,11 @@ public class CreateReport extends HttpServlet {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().println("Internal server error, retry later");
+            return;
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().println("Error while sending email");
             return;
         }
 

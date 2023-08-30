@@ -13,11 +13,11 @@
                         sessionStorage.setItem('user', JSON.stringify(userBean));
                         if(userBean.role === "Unregistered") {
                             sessionStorage.setItem("registrationInProgress", "true");
-                            window.location.href = contextPath + "/public/register/register.html";
+                            window.location.href = contextPath + "/users/confirmRegistration/confirmRegistration.html";
                         } else if (userBean.role === "None") {
-                            window.location.href = contextPath + "/users/waitForRole.html";
+                            window.location.href = contextPath + "/users/waitForRole/waitForRole.html";
                         } else {
-                            window.location.href = contextPath + "/users/homepage.html";
+                            window.location.href = contextPath + "/users/homePage/homePage.html";
                         }
                     },
             function (req) {

@@ -34,13 +34,13 @@
                     console.log(jsonData);
                     $('#itemsTable').bootstrapTable('append', jsonData);
                 },
-                function () {
-                    console.log("error");
+                function (req) {
+                    console.log("Error");
                 }
             );
         },
-        function () {
-            console.log("error");
+        function (req) {
+            console.log("Error");
         }
     );
 

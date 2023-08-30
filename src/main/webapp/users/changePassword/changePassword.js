@@ -10,6 +10,7 @@
     if(params.changePasswordToken != null){
         document.getElementById("changePasswordToken").value = params.changePasswordToken;
         document.getElementById("oldPasswordDiv").style.display = "none";
+        document.getElementById("old-password").required = false;
     } else {
         document.getElementById("changePasswordToken").value = "";
         document.getElementById("oldPasswordDiv").style.display = "block";
@@ -22,11 +23,8 @@
 
             makeCall("POST", contextPath + "/User/ChangePassword", document.getElementById("changePwdForm"), null,
                 function (req) {
-                    const messageDiv = document.getElementById("messageDiv");
-                    messageDiv.className = "alert alert-success";
-                    messageDiv.innerHTML = "";
-                    messageDiv.innerHTML = `<h6 class="mx-auto">${req.responseText}</h6>`;
-                    messageDiv.style.display = "flex";},
+                    openAlertPrompt("Success", "Password changed successfully. You can now go to <a href='../homePage/homePage.html'>HomePage</a>.");
+                },
                 function (req) {
                     const messageDiv = document.getElementById("messageDiv");
                     messageDiv.className = "alert alert-danger";

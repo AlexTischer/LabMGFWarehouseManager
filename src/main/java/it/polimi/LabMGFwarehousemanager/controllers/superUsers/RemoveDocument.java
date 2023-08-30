@@ -22,7 +22,7 @@ public class RemoveDocument extends HttpServlet {
 
     public void init() {
         try {
-            connection = ConnectionHandler.getConnection(getServletContext());
+            connection = ConnectionHandler.getConnection();
         } catch (UnavailableException e) {
             throw new RuntimeException(e);
         }
@@ -39,8 +39,8 @@ public class RemoveDocument extends HttpServlet {
         }
         ItemDAO itemDAO = new ItemDAO(connection);
         try{
-            itemDAO.removeDocumentById(id);
             FileHandler.deleteFile(itemDAO.getDocumentById(id).getPath());
+            itemDAO.removeDocumentById(id);
         } catch (SQLException e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             e.printStackTrace();

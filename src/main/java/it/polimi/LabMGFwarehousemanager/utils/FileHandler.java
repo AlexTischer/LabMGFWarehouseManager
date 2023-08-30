@@ -1,14 +1,15 @@
 package it.polimi.LabMGFwarehousemanager.utils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
+
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -87,11 +88,38 @@ public class FileHandler {
                         }
 
                         zos.closeEntry();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        if(!e.getMessage().contains("duplicate")){
+                            throw e;
+                        }
                     }
                 }
             }
         }
 
         return zipFile;
+    }
+
+    public static Map<String, String> getConfig(String mailConfigFilePath) {
+        try {
+            Gson gson = new Gson();
+            return gson.fromJson(new JsonReader(new FileReader(getFile(mailConfigFilePath))), Map.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void deleteTempFiles() {
+        File tempDir = new File(getFullPath("Temp"));
+        if (tempDir.exists()) {
+            File[] files = tempDir.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    file.delete();
+                }
+            }
+        }
     }
 }

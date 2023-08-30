@@ -19,9 +19,6 @@ let requestEndDate = null;
             makeCall("POST", contextPath + "/User/CreateRequest", null, Array.from(requestMap),
                 function (req) {
                             openSuccessPrompt("Request sent", "Your request has been sent successfully");
-                        },
-                function () {
-                            console.log("error");
                         }
             );
         }

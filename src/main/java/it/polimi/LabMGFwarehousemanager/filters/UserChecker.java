@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import static it.polimi.LabMGFwarehousemanager.utils.Constants.*;
+
 @WebFilter(filterName = "UserChecker")
 public class UserChecker extends HttpFilter {
 
@@ -24,7 +26,7 @@ public class UserChecker extends HttpFilter {
 
     public void init() {
         try {
-            connection = ConnectionHandler.getConnection(getServletContext());
+            connection = ConnectionHandler.getConnection();
         } catch (UnavailableException e) {
             throw new RuntimeException(e);
         }
@@ -37,65 +39,64 @@ public class UserChecker extends HttpFilter {
         }
     }
 
-    /**Checks if the user is logged in, if not allows to navigate to login, register, index or error pages, any other request gets redirected to index page.
+    /**Checks if the user is logged in, if not allows to navigate to log in, register, index or error pages, any other request gets redirected to index page.
      * If the user is logged in, checks if he is trying to access the login or register page, if so redirects to homepage*/
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-
-        //todo: remove this (just for testing)
-        chain.doFilter(request, response);
 
         String requestURI = request.getRequestURI();
         String contextPath = request.getContextPath();
 
-        //todo: update paths
-        boolean isLogin = requestURI.equals(contextPath +"/Login");
-        boolean isRegister = requestURI.equals(contextPath +"/Register");
-        boolean isLogout = requestURI.equals(contextPath +"/Logout");
-        boolean isIndex = requestURI.equals(contextPath +"/Index");
-        boolean isError = requestURI.contains(contextPath +"/ErrorPages/");
-        boolean isChangePassword = requestURI.equals(contextPath +"/ChangePassword");
+        UserBean user = (UserBean) request.getSession().getAttribute("user");
+        boolean hasUser = user!=null || hasValidRememberMeToken(request, response);
+        user = (UserBean) request.getSession().getAttribute("user");
+        boolean isConfirmed = (hasUser && user.getRole().getValue()>=0);
+        boolean hasRole = (hasUser && (user.getRole().getValue()>0));
 
-        boolean hasUser = request.getSession().getAttribute("user")!=null || hasValidRememberMeToken(request, response);
+        boolean isWelcome = requestURI.equals(contextPath + "/");
+        boolean isPublic = requestURI.startsWith(contextPath + "/public/") || (!requestURI.contains("/User/") && !requestURI.contains("/SuperUser/") && !requestURI.contains("/Admin/") && !requestURI.endsWith(".html") && !requestURI.endsWith(".js"));
+        boolean isChangePassword = requestURI.equals(contextPath + "/User/ChangePassword") || requestURI.startsWith(contextPath + CHANGE_PASSWORD_PATH);
+        boolean isLogin = requestURI.startsWith(contextPath + "/Login") || requestURI.startsWith(contextPath + LOGIN_PATH);
+        boolean isRegister = requestURI.startsWith(contextPath + "/Register") || requestURI.startsWith(contextPath + REGISTER_PATH);
+        boolean isIndex = isPublic && !isLogin && !isRegister;
+        boolean isConfirm = requestURI.startsWith(contextPath + "/ConfirmRegistration") || requestURI.startsWith(contextPath + CONFIRM_PATH);
+        boolean isLogout = requestURI.equals(contextPath + "/Logout");
+        boolean isWaitForRole = requestURI.startsWith(contextPath + WAIT_FOR_ROLE_PATH);
 
-        //todo: update sendRedirects
-
-        if( ((isLogin || isRegister || isIndex) && !hasUser) || isError) {
-            chain.doFilter(request, response);
-        }
-        else if(!hasUser){
-            if(isChangePassword){
-                if(hasValidChangePwdToken(request, response)) {
+        if(isWelcome){
+            response.sendRedirect(contextPath + INDEX_PATH + "index.html");
+        } else if(!hasUser){
+            if(isPublic){
+                chain.doFilter(request, response);
+            } else if(isChangePassword) {
+                if (hasValidChangePwdToken(request, response)) {
                     chain.doFilter(request, response);
-                    return;
                 } else {
-                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-                    return;
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
                 }
+            } else {
+                response.sendRedirect(contextPath + INDEX_PATH + "index.html");
             }
-            response.sendRedirect(contextPath + "/Index");
-        }
-        else if (isLogin || isRegister){
-            response.sendRedirect(contextPath + "/HomePage");
-        }
-        else{
-            boolean hasRole = false;
-            try{
-                hasRole = ((UserBean) request.getSession().getAttribute("user")).getRole().getValue()>0;
-            } catch (ClassCastException e){
-                e.printStackTrace();
+        } else if (!isConfirmed){
+            if(isConfirm) {
+                chain.doFilter(request, response);
+            } else {
+                response.sendRedirect(contextPath + CONFIRM_PATH + "confirmRegistration.html");
             }
-            if(hasRole){
+        } else if (!hasRole){
+            if(isWaitForRole || isLogout || isChangePassword || isIndex) {
+                chain.doFilter(request, response);
+            } else {
+                response.sendRedirect(contextPath + WAIT_FOR_ROLE_PATH + "waitForRole.html");
+            }
+        } else {
+            if(isLogin || isRegister || isConfirm || isWaitForRole){
+                response.sendRedirect(contextPath + HOMEPAGE_PATH + "homePage.html");
+            } else {
                 chain.doFilter(request, response);
             }
-            else {
-                if(isLogout){
-                    chain.doFilter(request, response);
-                }
-                else {
-                    response.sendError(402);
-                }
-            }
         }
+
+
     }
 
     private boolean hasValidChangePwdToken(HttpServletRequest request, HttpServletResponse response) throws UnavailableException {
@@ -142,10 +143,8 @@ public class UserChecker extends HttpFilter {
                             return false;
                         }
                         if (user != null) {
-                            /* TODO decide if to refresh token
                             c.setMaxAge(60 * 60 * 24 * 30);
                             response.addCookie(c);
-                            */
                             request.getSession().setAttribute("user", user);
                             return true;
                         }

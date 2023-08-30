@@ -25,6 +25,9 @@ public class UserDAO {
     private static final String UPDATE_USER_PASSWORD = "UPDATE users SET password = ? WHERE id = ?";
     private static final String SELECT_ADMINS_EMAILS = "SELECT email FROM users WHERE role = 3";
     private static final String SELECT_ADMINS_ID = "SELECT id FROM users WHERE role = 3";
+    private static final String REMOVE_UNCONFIRMED_USERS = "DELETE FROM users WHERE role = 0 AND registration < NOW() - INTERVAL 30 DAY";
+    private static final String REMOVE_USERS_WITHOUT_ROLE = "DELETE FROM users WHERE role = 0 AND registration < NOW() - INTERVAL 60 DAY";
+
 
     /**Inserts User in DB.*/
     public void insertUser(UserBean user) throws UnavailableException {
@@ -119,9 +122,9 @@ public class UserDAO {
         user.setName(resultSet.getString("name"));
         user.setSurname(resultSet.getString("surname"));
         user.setEmail(resultSet.getString("email"));
+        user.setId(resultSet.getInt("id"));
         if(addSensitive){
             user.setPassword(resultSet.getString("password"));
-            user.setId(resultSet.getInt("id"));
         }
         user.setRole(UserRole.getUserRoleFromInt(resultSet.getInt("role")));
         return user;
@@ -138,4 +141,10 @@ public class UserDAO {
     }
 
 
+    public void deleteOldDisabledUsers() throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_USERS_WITHOUT_ROLE);
+        preparedStatement.executeUpdate();
+        preparedStatement = connection.prepareStatement(REMOVE_UNCONFIRMED_USERS);
+        preparedStatement.executeUpdate();
+    }
 }

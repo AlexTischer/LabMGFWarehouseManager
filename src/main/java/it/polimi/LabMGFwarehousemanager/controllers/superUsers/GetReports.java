@@ -26,7 +26,7 @@ public class GetReports extends HttpServlet {
 
     public void init() {
         try {
-            connection = ConnectionHandler.getConnection(getServletContext());
+            connection = ConnectionHandler.getConnection();
         } catch (UnavailableException e) {
             throw new RuntimeException(e);
         }

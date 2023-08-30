@@ -26,7 +26,7 @@ public class GetUsers extends HttpServlet {
 
     public void init() {
         try {
-            connection = ConnectionHandler.getConnection(getServletContext());
+            connection = ConnectionHandler.getConnection();
         } catch (UnavailableException e) {
             throw new RuntimeException(e);
         }
@@ -43,6 +43,7 @@ public class GetUsers extends HttpServlet {
             response.getWriter().println("Failure in database access while retrieving users");
             return;
         }
+        users.removeIf(user -> user.getId() == ( (UserBean) request.getSession().getAttribute("user")).getId());
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         Gson gson = new Gson();

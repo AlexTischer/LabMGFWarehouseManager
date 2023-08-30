@@ -30,9 +30,6 @@
                 document.getElementById("requestSelect").add(option);
             }
             document.getElementById("requestSelect").dispatchEvent(new Event("change"));
-        },
-        function () {
-            console.log("error");
         }
     );
 
@@ -53,9 +50,6 @@
                     makeCall("POST", contextPath + "/User/CreateReport", document.getElementById("reportForm"), data,
                         function (req) {
                             openSuccessPrompt("Report created", "Your report has been created successfully");
-                        },
-                        function () {
-                            console.log("error");
                         }
                     )
             }

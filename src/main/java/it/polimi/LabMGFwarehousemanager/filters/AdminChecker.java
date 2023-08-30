@@ -16,21 +16,23 @@ public class AdminChecker extends HttpFilter {
     /**Checks if the user is an Admin, if not sends a 403 error, if yes allows to navigate to any page*/
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+        String requestURI = request.getRequestURI();
+        String contextPath = request.getContextPath();
 
-        //todo: remove this (just for testing)
-        chain.doFilter(request, response);
-
-        try {
-            if (((UserBean) (request.getSession().getAttribute("user"))).getRole().getValue() > 2) {
-                chain.doFilter(request, response);
-            }
-            else {
-                response.sendError(403);
+        if(requestURI.startsWith(contextPath + "/admins") || requestURI.startsWith(contextPath + "/Admin/")) {
+            try {
+                if (((UserBean) (request.getSession().getAttribute("user"))).getRole().getValue() > 2) {
+                    chain.doFilter(request, response);
+                } else {
+                    response.sendError(403);
+                }
+            } catch (ClassCastException e) {
+                request.setAttribute("error", "Error with Session User attribute");
+                request.getRequestDispatcher(request.getRequestURI()).forward(request, response);
             }
         }
-        catch (ClassCastException e){
-            request.setAttribute("error", "Error with Session User attribute");
-            request.getRequestDispatcher(request.getRequestURI()).forward(request, response);
+        else {
+            chain.doFilter(request, response);
         }
     }
 }

@@ -171,10 +171,19 @@ public class RequestDAO {
         }
     }
 
-    private final String CANCEL_REQUEST = "UPDATE requests SET status = ? WHERE id = ?";
+    private final String CANCEL_REQUEST = "UPDATE requests SET status = 3 WHERE id = ?";
     public void cancelRequest(int id) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(CANCEL_REQUEST);
         preparedStatement.setInt(1, id);
         preparedStatement.executeUpdate();
     }
+
+    private final String REJECT_OLD_PENDING_REQUESTS = "UPDATE requests SET status = 2 WHERE status = 0 AND end < NOW() - INTERVAL 1 DAY";
+    public void rejectOldPendingRequests() throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(REJECT_OLD_PENDING_REQUESTS);
+        preparedStatement.executeUpdate();
+    }
+
+
+
 }

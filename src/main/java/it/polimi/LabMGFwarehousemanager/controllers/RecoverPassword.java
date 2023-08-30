@@ -4,6 +4,7 @@ import it.polimi.LabMGFwarehousemanager.beans.UserBean;
 import it.polimi.LabMGFwarehousemanager.daos.TokenDAO;
 import it.polimi.LabMGFwarehousemanager.daos.UserDAO;
 import it.polimi.LabMGFwarehousemanager.utils.MailHandler;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.UnavailableException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -18,6 +19,7 @@ import java.sql.SQLException;
 
 import it.polimi.LabMGFwarehousemanager.utils.ConnectionHandler;
 
+import static it.polimi.LabMGFwarehousemanager.utils.Constants.CHANGE_PASSWORD_PATH;
 import static it.polimi.LabMGFwarehousemanager.utils.Constants.SERVER_URL;
 
 @MultipartConfig
@@ -28,7 +30,7 @@ public class RecoverPassword extends HttpServlet {
 
     public void init() {
         try {
-            connection = ConnectionHandler.getConnection(getServletContext());
+            connection = ConnectionHandler.getConnection();
         } catch (UnavailableException e) {
             throw new RuntimeException(e);
         }
@@ -46,9 +48,15 @@ public class RecoverPassword extends HttpServlet {
             if (user != null) {
                 TokenDAO tokenDAO = new TokenDAO(connection);
                 String token = tokenDAO.insertChangePwdToken(user);
-                MailHandler.sendMail(email,
-                        "Recover password",
-                        "Click on the following link to recover your password: " + SERVER_URL + "/ChangePassword?changePasswordToken=" + token);
+                try {
+                    MailHandler.sendMail(email,
+                            "Recover password",
+                            "Click on the following link to recover your password: " + SERVER_URL + CHANGE_PASSWORD_PATH + "changePassword.html" + "?changePasswordToken=" + token);
+                } catch (MessagingException e) {
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().println("Error while sending email");
+                    return;
+                }
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().println("An email has been sent to " + email + " with instructions to recover your password");
                 return;

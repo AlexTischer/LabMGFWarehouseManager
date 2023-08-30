@@ -66,10 +66,7 @@ function updateCalendar(){
                     }
 
                     calendar.render();
-                },
-        function () {
-                    console.log("error");
-                },
+                }
     );
 }
 

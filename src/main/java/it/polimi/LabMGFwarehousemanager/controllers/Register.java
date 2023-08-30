@@ -6,6 +6,7 @@ import it.polimi.LabMGFwarehousemanager.daos.UserDAO;
 import it.polimi.LabMGFwarehousemanager.enums.UserRole;
 import it.polimi.LabMGFwarehousemanager.utils.MailHandler;
 import it.polimi.LabMGFwarehousemanager.utils.PasswordHandler;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.UnavailableException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -28,7 +29,7 @@ public class Register extends HttpServlet {
 
     public void init() {
         try {
-            connection = ConnectionHandler.getConnection(getServletContext());
+            connection = ConnectionHandler.getConnection();
         } catch (UnavailableException e) {
             throw new RuntimeException(e);
         }
@@ -69,6 +70,7 @@ public class Register extends HttpServlet {
                 response.setStatus(HttpServletResponse.SC_OK);
                 userDAO.insertUser(user);
                 user = userDAO.getUserByEmail(email);
+                request.getSession().setAttribute("user", user);
                 TokenDAO tokenDAO = new TokenDAO(connection);
                 int code = tokenDAO.insertRegistrationToken(user);
                 MailHandler.sendMail(email,
@@ -78,6 +80,9 @@ public class Register extends HttpServlet {
             } catch (UnavailableException e) {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 response.getWriter().println("Internal error creating the user or saving it into the database");
+            } catch (MessagingException e) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                response.getWriter().println("Error while sending email");
             }
         }
     }

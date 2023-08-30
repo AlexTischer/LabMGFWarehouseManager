@@ -26,7 +26,7 @@ public class EditItem extends HttpServlet {
 
     public void init() {
         try {
-            connection = ConnectionHandler.getConnection(getServletContext());
+            connection = ConnectionHandler.getConnection();
         } catch (UnavailableException e) {
             throw new RuntimeException(e);
         }
@@ -73,10 +73,12 @@ public class EditItem extends HttpServlet {
 
         try {
             Part part = request.getPart("file");
-            String fileName = part.getSubmittedFileName();
-            if (fileName!= null && !fileName.isEmpty()) {
-                byte[] fileContent = part.getInputStream().readAllBytes();
-                filePath = FileHandler.addFile(fileName, fileContent, uploadFolder);
+            if(part != null) {
+                String fileName = part.getSubmittedFileName();
+                if (fileName != null && !fileName.isEmpty()) {
+                    byte[] fileContent = part.getInputStream().readAllBytes();
+                    filePath = FileHandler.addFile(fileName, fileContent, uploadFolder);
+                }
             }
         } catch (IllegalArgumentException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

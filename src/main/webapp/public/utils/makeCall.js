@@ -8,17 +8,17 @@ function makeCall(method, url, formElement = null, data = null, okcback, errcbac
         if (req.readyState == XMLHttpRequest.DONE) {
             if (req.status === 200) {
                 okcback(req);
-            } else if (errcback === undefined) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const errorMessage = reader.result;
-                    window.alert(errorMessage);
-                };
             } else {
-                errcback(req);
+                if (errcback === null) {
+                    const errorMessage = req.responseText;
+                    console.log(errorMessage);
+                    openAlertPrompt("Error", errorMessage);
+                } else {
+                    errcback(req);
+                }
             }
         }
-    };
+    }
 
 
     req.open(method, url);

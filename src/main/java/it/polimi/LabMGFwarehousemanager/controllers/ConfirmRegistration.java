@@ -8,6 +8,7 @@ import it.polimi.LabMGFwarehousemanager.daos.UserDAO;
 import it.polimi.LabMGFwarehousemanager.enums.NotificationType;
 import it.polimi.LabMGFwarehousemanager.enums.UserRole;
 import it.polimi.LabMGFwarehousemanager.utils.MailHandler;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.UnavailableException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -29,7 +30,7 @@ public class ConfirmRegistration extends HttpServlet {
 
     public void init() {
         try {
-            connection = ConnectionHandler.getConnection(getServletContext());
+            connection = ConnectionHandler.getConnection();
         } catch (UnavailableException e) {
             throw new RuntimeException(e);
         }
@@ -85,6 +86,10 @@ public class ConfirmRegistration extends HttpServlet {
         } catch (SQLException e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().println("Not possible to confirm registration");
+            return;
+        } catch (MessagingException e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().println("Not possible to send email");
             return;
         }
             UserBean userCopy = user.clone();

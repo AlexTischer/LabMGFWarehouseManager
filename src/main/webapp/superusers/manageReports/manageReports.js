@@ -40,9 +40,6 @@ function getReports(){
             $(function () {
                 $('#reportsTable').bootstrapTable('load', reports);
             });
-        },
-        function (req) {
-            console.error(req);
         }
     );
 }
@@ -51,9 +48,6 @@ function updateReportStatus(reportId, statusId){
     makeCall("POST", contextPath + "/SuperUser/UpdateReport" + "?reportId=" + reportId + "&reportStatus=" + statusId, null, null,
         function (req) {
             getReports();
-        },
-        function (req) {
-            console.error(req);
         }
     );
 }

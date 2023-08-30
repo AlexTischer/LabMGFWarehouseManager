@@ -7,6 +7,7 @@ import it.polimi.LabMGFwarehousemanager.daos.RequestDAO;
 import it.polimi.LabMGFwarehousemanager.daos.UserDAO;
 import it.polimi.LabMGFwarehousemanager.enums.NotificationType;
 import it.polimi.LabMGFwarehousemanager.utils.MailHandler;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.UnavailableException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -34,7 +35,7 @@ public class CreateRequest extends HttpServlet {
 
     public void init() {
         try {
-            connection = ConnectionHandler.getConnection(getServletContext());
+            connection = ConnectionHandler.getConnection();
         } catch (UnavailableException e) {
             throw new RuntimeException(e);
         }
@@ -112,11 +113,15 @@ public class CreateRequest extends HttpServlet {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 response.getWriter().println("Internal server error, retry later");
                 return;
+            } catch (MessagingException e) {
+                e.printStackTrace();
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().println("Invalid request");
+                return;
             }
 
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().println("Report created successfully");
-            //todo: send notification to admins
         }
 
     }
