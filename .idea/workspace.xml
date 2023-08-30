@@ -12,19 +12,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4bbd4ea9-dba0-4f9f-a300-05420a4096ba" name="Changes" comment="Completely rewritten add/edit/link items and documents, confirm registration front-ends.&#10;&#10;Redesign of homepage.&#10;&#10;Rewritten and enabled filters.&#10;&#10;Moved config to json files.&#10;&#10;Empty DB dump.sql.&#10;&#10;Deliverables.&#10;&#10;Created methods in DAO and FileHandler for cleanup scheduled jobs (not enabled).">
-      <change afterPath="$PROJECT_DIR$/src/Deliverables/LabMGF Warehouse Manager.pptx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Deliverables/LabMGFWarehouseManager.war" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Deliverables/Tischer_10661939.pdf" afterDir="false" />
+    <list default="true" id="4bbd4ea9-dba0-4f9f-a300-05420a4096ba" name="Changes" comment="Moved Deliverables, Added video demo">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Deliverables/1. Install Tomcat.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Deliverables/1. Install Tomcat.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Deliverables/2. Install MySQL.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Deliverables/2. Install MySQL.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Deliverables/3. Configure and Deploy LabMGFWarehouseManager.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Deliverables/3. Configure and Deploy LabMGFWarehouseManager.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Deliverables/dump.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/Deliverables/dump.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/LabMGFwarehousemanager/controllers/superUsers/InsertItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/LabMGFwarehousemanager/controllers/superUsers/InsertItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/LabMGFwarehousemanager/controllers/users/CreateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/LabMGFwarehousemanager/controllers/users/CreateRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/LabMGFwarehousemanager/utils/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/LabMGFwarehousemanager/utils/FileHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/public/utils/contextPath.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/public/utils/contextPath.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Deliverables/1. Install Tomcat.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Deliverables/1. Install Tomcat.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Deliverables/2. Install MySQL.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Deliverables/2. Install MySQL.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Deliverables/3. Configure and Deploy LabMGFWarehouseManager.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Deliverables/3. Configure and Deploy LabMGFWarehouseManager.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Deliverables/LabMGF Warehouse Manager.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/Deliverables/LabMGF Warehouse Manager.mp4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Deliverables/LabMGF Warehouse Manager.pptx" beforeDir="false" afterPath="$PROJECT_DIR$/Deliverables/LabMGF Warehouse Manager.pptx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Deliverables/LabMGFWarehouseManager.war" beforeDir="false" afterPath="$PROJECT_DIR$/Deliverables/LabMGFWarehouseManager.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Deliverables/dump.sql" beforeDir="false" afterPath="$PROJECT_DIR$/Deliverables/dump.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,37 +66,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "TODO_SCOPE": "All Places",
-    "WebServerToolWindowFactoryState": "false",
-    "database.data.extractors.current.export.id": "SQL Inserts",
-    "database.data.extractors.current.id": "Comma-separated (CSV)_id",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/aless/IdeaProjects/LabMGF Warehouse Manager/src/Deliverables",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "settings.sync",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;SQL Inserts&quot;,
+    &quot;database.data.extractors.current.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/aless/IdeaProjects/LabMGF Warehouse Manager/src/Deliverables&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ],
-    "com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect": [
-      "MySQL"
+    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect&quot;: [
+      &quot;MySQL&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\aless\IdeaProjects\LabMGF Warehouse Manager\src\Deliverables" />
@@ -108,10 +104,10 @@
       <recent name="C:\Users\aless\IdeaProjects\Geodesic WareHouse Manager\src\main\webapp\public\utils" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\aless\IdeaProjects\LabMGF Warehouse Manager" />
       <recent name="C:\Users\aless\IdeaProjects\LabMGF Warehouse Manager\src" />
       <recent name="C:\Users\aless\IdeaProjects\LabMGF Warehouse Manager\src\main\Deliverables" />
       <recent name="C:\Users\aless\IdeaProjects\LabMGF Warehouse Manager\src\main" />
-      <recent name="C:\Users\aless\IdeaProjects\LabMGF Warehouse Manager" />
       <recent name="C:\Users\aless\IdeaProjects\LabMGF Warehouse Manager\src\main\webapp\users\homePage" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -338,6 +334,7 @@
       <workItem from="1693216904080" duration="14392000" />
       <workItem from="1693298775690" duration="5164000" />
       <workItem from="1693381583700" duration="4079000" />
+      <workItem from="1693393149788" duration="1813000" />
     </task>
     <task id="LOCAL-00001" summary="Added full users management">
       <created>1684508979586</created>
@@ -393,7 +390,15 @@
       <option name="project" value="LOCAL" />
       <updated>1693382343609</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Moved Deliverables, Added video demo">
+      <option name="closed" value="true" />
+      <created>1693393434020</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1693393434020</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -420,6 +425,28 @@
     <MESSAGE value="Cleaned up UI&#10;Removed unused imports&#10;Renamed Geodesic into LabMGF&#10;Implemented Cancel Request Flow&#10;Completed Notifications Flow&#10;Completed Create Request Flow&#10;Implemented Get Documents Flow&#10;Implemented Manage Your Requests Flow" />
     <MESSAGE value="Completely rewritten add/edit/link items and documents, confirm registration front-ends.&#10;&#10;Redesign of homepage&#10;&#10;Rewritten and enabled filters.&#10;&#10;Moved config to json files.&#10;&#10;Empty DB dump.sql&#10;&#10;Deliverables.&#10;&#10;Created methods in DAO and FileHandler for cleanup scheduled jobs (not enabled)." />
     <MESSAGE value="Completely rewritten add/edit/link items and documents, confirm registration front-ends.&#10;&#10;Redesign of homepage.&#10;&#10;Rewritten and enabled filters.&#10;&#10;Moved config to json files.&#10;&#10;Empty DB dump.sql.&#10;&#10;Deliverables.&#10;&#10;Created methods in DAO and FileHandler for cleanup scheduled jobs (not enabled)." />
-    <option name="LAST_COMMIT_MESSAGE" value="Completely rewritten add/edit/link items and documents, confirm registration front-ends.&#10;&#10;Redesign of homepage.&#10;&#10;Rewritten and enabled filters.&#10;&#10;Moved config to json files.&#10;&#10;Empty DB dump.sql.&#10;&#10;Deliverables.&#10;&#10;Created methods in DAO and FileHandler for cleanup scheduled jobs (not enabled)." />
+    <MESSAGE value="Moved Deliverables, Added video demo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Moved Deliverables, Added video demo" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/LabMGFwarehousemanager/utils/FileHandler.java</url>
+          <line>20</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/LabMGFwarehousemanager/controllers/superUsers/InsertItem.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/LabMGFwarehousemanager/controllers/superUsers/EditItem.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

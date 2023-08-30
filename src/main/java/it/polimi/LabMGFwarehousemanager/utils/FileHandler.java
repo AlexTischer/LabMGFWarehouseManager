@@ -15,7 +15,6 @@ import java.util.zip.ZipOutputStream;
 
 public class FileHandler {
 
-    //todo: find out why when editing an Item a / is missing in the path
     public static String addFile(String fileName, byte[] fileContent, String relativePath) throws IOException {
 
         String userHome = System.getProperty("user.home");
