@@ -1,0 +1,76 @@
+Login: labmgf
+Password: l4bMGF
+
+Update packages
+#sudo apt update
+#sudo apt upgrade
+
+Install Java
+#sudo apt install openjdk-19-jre-headless -y
+
+Add system user for Tomcat
+#sudo useradd -m -U -d /opt/tomcat -s /bin/false tomcat
+
+Download and extract Tomcat
+#wget https://www-eu.apache.org/dist/tomcat/tomcat-10/v10.1.12/bin/apache-tomcat-10.1.12.tar.gz -P /tmp
+#sudo tar -xf /tmp/apache-tomcat-10.1.12.tar.gz -C /opt/tomcat/
+
+Give tomcat user access to the folder
+#sudo chown -R tomcat: /opt/tomcat
+
+Make shell files executable
+#sudo sh -c 'chmod +x /opt/tomcat/apache-tomcat-10.1.12/bin/*.sh'
+
+Run Tomcat as a Service
+#sudo nano /etc/systemd/system/tomcat.service
+        [Unit]
+        Description=Tomcat 10 servlet container
+        After=network.target
+
+        [Service]
+        Type=forking
+
+        User=tomcat
+        Group=tomcat
+
+        Environment="JAVA_HOME=/usr/lib/jvm/java-19-openjdk-amd64/"
+        Environment="JAVA_OPTS=-Djava.security.egd=file:///dev/urandom -Djava.awt.headless=true -Duser.timezone=UTC"
+
+        Environment="CATALINA_BASE=/opt/tomcat/apache-tomcat-10.1.12"
+        Environment="CATALINA_HOME=/opt/tomcat/apache-tomcat-10.1.12"
+        Environment="CATALINA_PID=/opt/tomcat/apache-tomcat-10.1.12/temp/tomcat.pid"
+        Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
+
+        ExecStart=/opt/tomcat/apache-tomcat-10.1.12/bin/startup.sh
+        ExecStop=/opt/tomcat/apache-tomcat-10.1.12/bin/shutdown.sh
+
+        [Install]
+        WantedBy=multi-user.target
+
+Reload Systemctl daemon
+#sudo systemctl daemon-reload
+
+Enable and start Tomcat
+#sudo systemctl enable --now tomcat
+
+Create admin and manager for gui
+#sudo nano /opt/tomcat/apache-tomcat-10.1.12/conf/tomcat-users.xml
+        <role rolename="admin-gui"/>
+        <role rolename="manager-gui"/>
+        <user username="labmgf" password="l4bMGF" roles="admin-gui,manager-gui"/>
+
+Allow management from remote IP
+#sudo nano /opt/tomcat/apache-tomcat-10.1.12/webapps/manager/META-INF/context.xml
+#sudo nano /opt/tomcat/apache-tomcat-10.1.12/webapps/host-manager/META-INF/context.xml
+    <!--
+    <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+            allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
+    -->
+
+Change port to 80
+#sudo apt-get install iptables
+#sudo iptables -t nat -I PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
+
+Restart service
+#sudo systemctl restart tomcat
+

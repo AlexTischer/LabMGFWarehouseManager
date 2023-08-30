@@ -71,7 +71,6 @@ public class InsertItem extends HttpServlet {
 
         String filePath = null;
         String uploadFolder = "Uploads";
-        //+ File.separator + ItemType.getItemTypeFromInt(itemType).toString()
 
         try {
             Part part = request.getPart("file");
